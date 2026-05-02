@@ -6,160 +6,543 @@
 <title>Saira — Job Tracker 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0c0c0c;--surface:#141414;--surface2:#1c1c1c;--surface3:#242424;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);--text:#f0ede8;--muted:#888882;--dim:#3a3a38;--accent:#c8f060;--red:#ff6b6b;--blue:#74b9ff;--amber:#fdcb6e;--purple:#c084fc;--teal:#55efc4}
+:root{--bg:#0c0c0c;--s1:#141414;--s2:#1c1c1c;--s3:#242424;--b1:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.11);--tx:#f0ede8;--mu:#888882;--dm:#3a3a38;--ac:#c8f060;--red:#ff6b6b;--blu:#74b9ff;--amb:#fdcb6e;--pur:#c084fc;--tel:#55efc4}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh}
-body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(200,240,96,0.04) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 90%,rgba(116,185,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
-.wrap{max-width:1080px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
-header{padding:3.5rem 0 2rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
-.title-block h1{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;margin-bottom:6px}
-.title-block h1 em{color:var(--accent);font-style:italic}
-.title-sub{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.04em}
-.sync-pill{display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);border-radius:99px;padding:5px 14px 5px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px}
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:breathe 2.4s ease-in-out infinite}
-@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.75)}}
-.last-updated{font-size:11px;color:var(--dim);font-family:'DM Mono',monospace}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--dim);border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.5rem}
-.metric{background:var(--surface);padding:1.4rem 1.2rem 1.2rem;position:relative;transition:background .15s}
-.metric:hover{background:var(--surface2)}
-.metric::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--bar-color,transparent);opacity:.7}
-.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.6rem}
-.metric-num{font-family:'DM Serif Display',serif;font-size:3rem;line-height:1;color:var(--num-color,var(--text));margin-bottom:3px}
-.metric-foot{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim)}
-.two-col{display:grid;grid-template-columns:240px 1fr;gap:1rem;margin-bottom:1.5rem}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem}
-.panel-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:1.2rem}
-.donut-ring{position:relative;width:130px;height:130px;margin:0 auto 1.2rem}
-.donut-ring svg{transform:rotate(-90deg)}
-.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.donut-total{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;color:var(--text)}
-.donut-sub{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
-.donut-legend{display:flex;flex-direction:column;gap:8px}
-.dleg{display:flex;align-items:center;justify-content:space-between;font-size:11px}
-.dleg-left{display:flex;align-items:center;gap:7px;color:var(--muted)}
-.dleg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.dleg-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
-.rate-bars{display:flex;flex-direction:column;gap:1.1rem}
-.rate-header{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px}
-.rate-name{color:var(--muted)}
-.rate-pct{font-family:'DM Mono',monospace;color:var(--text)}
-.rate-track{height:5px;background:var(--surface3);border-radius:99px;overflow:hidden}
-.rate-fill{height:100%;border-radius:99px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-.table-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.5rem}
-.table-toolbar{display:flex;gap:8px;align-items:center;padding:1rem 1.4rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.search-wrap{flex:1;min-width:180px;position:relative}
-.search-wrap::before{content:'⌕';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
-#searchBox{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:7px 12px 7px 30px;font-family:'Syne',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .15s}
-#searchBox:focus{border-color:var(--accent)}
-#searchBox::placeholder{color:var(--dim)}
-.filters{display:flex;gap:6px;flex-wrap:wrap}
-.f-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:99px;padding:5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
-.f-btn:hover{color:var(--text);background:var(--surface3)}
-.f-btn.on{background:var(--accent);color:#0c0c0c;border-color:var(--accent)}
-.tbl-wrap{overflow-x:auto}
+body{background:var(--bg);color:var(--tx);font-family:'Syne',sans-serif;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(200,240,96,0.03) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 90%,rgba(116,185,255,0.03) 0%,transparent 60%);pointer-events:none;z-index:0}
+.wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
+
+/* HEADER */
+header{padding:2.5rem 0 1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--b1);margin-bottom:2rem}
+.title-block h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-0.02em}
+.title-block h1 em{color:var(--ac);font-style:italic}
+.title-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--mu);letter-spacing:.04em;margin-top:4px}
+.sync-pill{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--b2);border-radius:99px;padding:5px 12px 5px 9px;font-family:'DM Mono',monospace;font-size:11px;color:var(--mu)}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--ac);animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* SUMMARY METRICS */
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--dm);border-radius:12px;overflow:hidden;border:1px solid var(--b1);margin-bottom:1.5rem}
+.metric{background:var(--s1);padding:1.1rem 1rem;cursor:default;transition:background .15s;position:relative}
+.metric::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--bc,transparent)}
+.metric:hover{background:var(--s2)}
+.metric-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);font-weight:600;margin-bottom:.5rem}
+.metric-num{font-family:'DM Serif Display',serif;font-size:2.4rem;line-height:1;color:var(--nc,var(--tx))}
+.metric-foot{font-family:'DM Mono',monospace;font-size:10px;color:var(--dm);margin-top:2px}
+
+/* MONTH TABS */
+.month-nav{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.25rem}
+.m-btn{background:var(--s2);border:1px solid var(--b1);border-radius:99px;padding:6px 14px;font-family:'Syne',sans-serif;font-size:12px;font-weight:500;color:var(--mu);cursor:pointer;transition:all .15s;white-space:nowrap}
+.m-btn:hover{color:var(--tx);background:var(--s3)}
+.m-btn.on{background:var(--ac);color:#0c0c0c;border-color:var(--ac)}
+.m-btn .m-count{font-family:'DM Mono',monospace;font-size:10px;margin-left:4px;opacity:.7}
+
+/* STATUS FILTER PILLS */
+.status-nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.status-nav-label{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+.s-btn{display:inline-flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--b1);border-radius:99px;padding:5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:var(--mu);cursor:pointer;transition:all .15s;white-space:nowrap}
+.s-btn::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--dot,var(--mu));flex-shrink:0}
+.s-btn:hover{color:var(--tx);background:var(--s3)}
+.s-btn.on{border-color:var(--dot,var(--mu));color:var(--tx);background:var(--s3)}
+.s-btn.on-solid{background:var(--dot);color:#0c0c0c;border-color:var(--dot)}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:1rem}
+.search-wrap::before{content:'⌕';position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:14px;pointer-events:none}
+#searchBox{width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:8px 12px 8px 30px;font-family:'Syne',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:border-color .15s}
+#searchBox:focus{border-color:var(--ac)}
+#searchBox::placeholder{color:var(--dm)}
+
+/* TABLE */
+.table-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+.tbl-inner{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-thead th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--border);transition:background .1s;cursor:default}
+thead th{text-align:left;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);padding:10px 14px;border-bottom:1px solid var(--b1);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:var(--tx)}
+thead th.sorted{color:var(--ac)}
+tbody tr{border-bottom:1px solid var(--b1);transition:background .1s}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--surface2)}
-td{padding:11px 14px;font-size:13px;color:var(--text);vertical-align:middle}
-.td-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
-.td-company{font-weight:600;white-space:nowrap}
-.td-role{color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.td-source{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);white-space:nowrap}
-.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:600;letter-spacing:.04em;white-space:nowrap;border:1px solid transparent}
+tbody tr:hover{background:var(--s2)}
+td{padding:10px 14px;font-size:12px;vertical-align:middle}
+.td-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--mu);white-space:nowrap}
+.td-co{font-weight:600;white-space:nowrap}
+.td-role{color:var(--mu);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-src{font-family:'DM Mono',monospace;font-size:10px;color:var(--dm);white-space:nowrap}
+.td-status{white-space:nowrap}
+.td-actions{white-space:nowrap}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:600;letter-spacing:.03em;border:1px solid transparent}
 .badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.b-rejected{background:rgba(255,107,107,.10);color:var(--red);border-color:rgba(255,107,107,.2)}.b-rejected::before{background:var(--red)}
-.b-applied{background:rgba(116,185,255,.10);color:var(--blue);border-color:rgba(116,185,255,.2)}.b-applied::before{background:var(--blue)}
-.b-received{background:rgba(200,240,96,.10);color:var(--accent);border-color:rgba(200,240,96,.2)}.b-received::before{background:var(--accent)}
-.b-inprogress{background:rgba(253,203,110,.10);color:var(--amber);border-color:rgba(253,203,110,.2)}.b-inprogress::before{background:var(--amber)}
-.b-response{background:rgba(192,132,252,.10);color:var(--purple);border-color:rgba(192,132,252,.2)}.b-response::before{background:var(--purple)}
-.empty{text-align:center;padding:3rem;color:var(--dim);font-size:13px;font-family:'DM Mono',monospace}
-.count-row{font-family:'DM Mono',monospace;font-size:11px;color:var(--dim);padding:8px 14px;border-top:1px solid var(--border)}
-footer{border-top:1px solid var(--border);padding:1.5rem 0 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--dim)}
-.footer-note a{color:var(--muted);text-decoration:none}
-.footer-note a:hover{color:var(--accent)}
-::-webkit-scrollbar{width:6px;height:6px}
+.b-noreply{background:rgba(116,185,255,.08);color:var(--blu);border-color:rgba(116,185,255,.2)}.b-noreply::before{background:var(--blu)}
+.b-rejected{background:rgba(255,107,107,.08);color:var(--red);border-color:rgba(255,107,107,.2)}.b-rejected::before{background:var(--red)}
+.b-received{background:rgba(200,240,96,.08);color:var(--ac);border-color:rgba(200,240,96,.2)}.b-received::before{background:var(--ac)}
+.b-followup{background:rgba(253,203,110,.08);color:var(--amb);border-color:rgba(253,203,110,.2)}.b-followup::before{background:var(--amb)}
+.b-interview{background:rgba(192,132,252,.08);color:var(--pur);border-color:rgba(192,132,252,.2)}.b-interview::before{background:var(--pur)}
+
+/* EDIT BUTTON */
+.edit-btn{background:none;border:1px solid var(--b2);border-radius:6px;padding:3px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--mu);cursor:pointer;transition:all .15s}
+.edit-btn:hover{border-color:var(--ac);color:var(--ac)}
+
+/* TABLE FOOTER */
+.tbl-foot{padding:8px 14px;border-top:1px solid var(--b1);font-family:'DM Mono',monospace;font-size:11px;color:var(--dm);display:flex;justify-content:space-between;align-items:center}
+
+/* MONTH SUMMARY BAR */
+.month-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:1rem}
+.ms-item{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:.75rem 1rem;text-align:center}
+.ms-num{font-family:'DM Serif Display',serif;font-size:1.8rem;line-height:1;color:var(--nc,var(--tx))}
+.ms-label{font-size:10px;color:var(--mu);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--s1);border:1px solid var(--b2);border-radius:14px;padding:1.5rem;width:min(480px,90vw);max-height:80vh;overflow-y:auto}
+.modal h3{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:1rem}
+.modal label{display:block;font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;margin-top:.75rem}
+.modal select,.modal input,.modal textarea{width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;font-family:'Syne',sans-serif;font-size:13px;color:var(--tx);outline:none}
+.modal select:focus,.modal input:focus,.modal textarea:focus{border-color:var(--ac)}
+.modal textarea{resize:vertical;min-height:70px}
+.modal-btns{display:flex;gap:8px;margin-top:1.25rem;justify-content:flex-end}
+.btn-primary{background:var(--ac);color:#0c0c0c;border:none;border-radius:8px;padding:8px 18px;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer}
+.btn-secondary{background:var(--s2);color:var(--mu);border:1px solid var(--b2);border-radius:8px;padding:8px 18px;font-family:'Syne',sans-serif;font-size:12px;cursor:pointer}
+
+/* ADD BUTTON */
+.add-btn{display:inline-flex;align-items:center;gap:6px;background:var(--ac);color:#0c0c0c;border:none;border-radius:99px;padding:7px 16px;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.add-btn:hover{opacity:.85}
+
+/* EMPTY */
+.empty{text-align:center;padding:3rem;color:var(--dm);font-family:'DM Mono',monospace;font-size:12px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--dim);border-radius:3px}
-@media(max-width:700px){.metrics{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}
+::-webkit-scrollbar-thumb{background:var(--dm);border-radius:3px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--b1);padding:1.5rem 0 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--dm)}
+.footer-note a{color:var(--mu);text-decoration:none}
+.footer-note a:hover{color:var(--ac)}
+
+@media(max-width:650px){.metrics{grid-template-columns:repeat(3,1fr)}.month-summary{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
 <header>
   <div class="title-block">
     <h1>Job <em>Tracker</em></h1>
-    <div class="title-sub">SAIRA PRAGYAN &middot; JAN 2026 &rarr; PRESENT</div>
+    <div class="title-sub">SAIRA PRAGYAN · JAN 2026 → PRESENT</div>
   </div>
-  <div style="text-align:right">
-    <div class="sync-pill"><span class="pulse"></span><span id="syncTime">synced today</span></div>
-    <div class="last-updated" id="lastUpdated">&mdash;</div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <div class="sync-pill"><span class="pulse"></span><span id="syncLabel">synced today</span></div>
+    <button class="add-btn" onclick="openAddModal()">+ Add application</button>
   </div>
 </header>
-<div class="metrics">
-  <div class="metric" style="--bar-color:var(--text);--num-color:var(--text)"><div class="metric-label">Total Applied</div><div class="metric-num" id="mTotal">0</div><div class="metric-foot">tracked applications</div></div>
-  <div class="metric" style="--bar-color:var(--red);--num-color:var(--red)"><div class="metric-label">Rejected</div><div class="metric-num" id="mRejected">0</div><div class="metric-foot" id="mRejPct">-</div></div>
-  <div class="metric" style="--bar-color:var(--accent);--num-color:var(--accent)"><div class="metric-label">Responses</div><div class="metric-num" id="mResponses">0</div><div class="metric-foot">any reply received</div></div>
-  <div class="metric" style="--bar-color:var(--blue);--num-color:var(--blue)"><div class="metric-label">Awaiting Reply</div><div class="metric-num" id="mPending">0</div><div class="metric-foot">no response yet</div></div>
+
+<!-- OVERALL METRICS -->
+<div class="metrics" id="metricsBar"></div>
+
+<!-- MONTH TABS -->
+<div class="month-nav" id="monthNav"></div>
+
+<!-- MONTH SUMMARY -->
+<div class="month-summary" id="monthSummary"></div>
+
+<!-- STATUS FILTERS -->
+<div class="status-nav">
+  <span class="status-nav-label">Status</span>
+  <button class="s-btn on" style="--dot:var(--tx)" onclick="setStatus('all',this)">All</button>
+  <button class="s-btn" style="--dot:var(--blu)" onclick="setStatus('noreply',this)">No Reply</button>
+  <button class="s-btn" style="--dot:var(--ac)" onclick="setStatus('received',this)">Response Received</button>
+  <button class="s-btn" style="--dot:var(--red)" onclick="setStatus('rejected',this)">Rejected</button>
+  <button class="s-btn" style="--dot:var(--amb)" onclick="setStatus('followup',this)">Follow Up</button>
+  <button class="s-btn" style="--dot:var(--pur)" onclick="setStatus('interview',this)">Interview</button>
 </div>
-<div class="two-col">
-  <div class="panel">
-    <div class="panel-label">Status Mix</div>
-    <div class="donut-ring">
-      <svg width="130" height="130" viewBox="0 0 130 130">
-        <circle cx="65" cy="65" r="54" fill="none" stroke="#1c1c1c" stroke-width="16"/>
-        <circle id="arc-rejected" cx="65" cy="65" r="54" fill="none" stroke="var(--red)" stroke-width="16" stroke-dasharray="0 339.3"/>
-        <circle id="arc-received" cx="65" cy="65" r="54" fill="none" stroke="var(--accent)" stroke-width="16" stroke-dasharray="0 339.3"/>
-        <circle id="arc-inprogress" cx="65" cy="65" r="54" fill="none" stroke="var(--amber)" stroke-width="16" stroke-dasharray="0 339.3"/>
-        <circle id="arc-response" cx="65" cy="65" r="54" fill="none" stroke="var(--purple)" stroke-width="16" stroke-dasharray="0 339.3"/>
-        <circle id="arc-applied" cx="65" cy="65" r="54" fill="none" stroke="var(--blue)" stroke-width="16" stroke-dasharray="0 339.3"/>
-      </svg>
-      <div class="donut-center"><div class="donut-total" id="donutTotal">0</div><div class="donut-sub">total</div></div>
-    </div>
-    <div class="donut-legend" id="donutLegend"></div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <input id="searchBox" type="text" placeholder="Search company or role…" oninput="render()">
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <div class="tbl-inner">
+    <table>
+      <thead>
+        <tr>
+          <th onclick="sortBy('date')">Date <span id="sort-date"></span></th>
+          <th onclick="sortBy('company')">Company <span id="sort-company"></span></th>
+          <th>Role</th>
+          <th>Source</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
   </div>
-  <div class="panel">
-    <div class="panel-label">Response Rates</div>
-    <div class="rate-bars" id="rateBars"></div>
+  <div class="tbl-foot">
+    <span id="countLabel">—</span>
+    <span id="lastUpdated" style="color:var(--dm)">—</span>
   </div>
 </div>
-<div class="table-panel">
-  <div class="table-toolbar">
-    <div class="search-wrap"><input id="searchBox" type="text" placeholder="Search company or role..." oninput="filterTable()"></div>
-    <div class="filters">
-      <button class="f-btn on" onclick="setFilter('all',this)">All</button>
-      <button class="f-btn" onclick="setFilter('rejected',this)">Rejected</button>
-      <button class="f-btn" onclick="setFilter('received',this)">Acknowledged</button>
-      <button class="f-btn" onclick="setFilter('applied',this)">No Reply</button>
-      <button class="f-btn" onclick="setFilter('inprogress',this)">In Progress</button>
-      <button class="f-btn" onclick="setFilter('response',this)">Response</button>
-    </div>
-  </div>
-  <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Company</th><th>Role</th><th>Source</th><th>Status</th></tr></thead><tbody id="tbody"></tbody></table></div>
-  <div class="count-row" id="countRow">-</div>
-</div>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-note">Auto-updated daily via fetch_jobs.py &middot; <a href="https://github.com/SairaPM10/job-tracker" target="_blank">github.com/SairaPM10/job-tracker</a></div>
-  <div class="footer-note">Jan 2026 &rarr; present</div>
+  <div class="footer-note">Updated manually · <a href="https://github.com/SairaPM10/job-tracker" target="_blank">github.com/SairaPM10/job-tracker</a></div>
+  <div class="footer-note">Jan 2026 → present</div>
 </footer>
+
+</div><!-- /wrap -->
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal">
+    <h3 id="modalTitle">Add Application</h3>
+    <input type="hidden" id="editId">
+    <label>Date</label>
+    <input type="date" id="f-date">
+    <label>Company</label>
+    <input type="text" id="f-company" placeholder="e.g. Goldman Sachs">
+    <label>Role</label>
+    <input type="text" id="f-role" placeholder="e.g. Business Analyst">
+    <label>Source</label>
+    <select id="f-source">
+      <option>LinkedIn</option><option>Workday</option><option>Direct</option>
+      <option>Greenhouse</option><option>Lever</option><option>SmartRecruiters</option>
+      <option>Indeed</option><option>Glassdoor</option><option>Recruiter</option><option>Other</option>
+    </select>
+    <label>Status</label>
+    <select id="f-status">
+      <option value="noreply">No Reply</option>
+      <option value="received">Response Received</option>
+      <option value="rejected">Rejected</option>
+      <option value="followup">Follow Up</option>
+      <option value="interview">Interview</option>
+    </select>
+    <label>Notes (optional)</label>
+    <textarea id="f-notes" placeholder="e.g. 2nd round scheduled, waiting to hear back…"></textarea>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="saveEntry()">Save</button>
+    </div>
+  </div>
 </div>
+
 <script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
 const LAST_UPDATED="2026-05-02";
-const APPLICATIONS=[{"date": "2026-05-02", "company": "DVF Recruitment", "role": "Application Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Amtis Digital", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "X4 Technology", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Jefferies", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Orchestrade", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Ventula Consulting", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Vertical Advantage", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "ERG Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "SearchWorks", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Raymond James", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Halliday Marx", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "RBC", "role": "Associate", "status": "received", "source": "Workday"}, {"date": "2026-05-02", "company": "A2Dominion Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "ECW Search", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Fanatics Betting Gaming", "role": "Data Analyst III Regulatory Reporting", "status": "received", "source": "Direct"}, {"date": "2026-05-02", "company": "Allen Lane", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Goldman Sachs", "role": "(via Oracle)", "status": "received", "source": "Direct"}, {"date": "2026-05-02", "company": "Succession Group", "role": "Business Analyst", "status": "received", "source": "Direct"}, {"date": "2026-05-02", "company": "KennedyPearce Consulting", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Marshall Wolfe", "role": "Loans Analyst Investment", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Flo Health", "role": "IT Business Partner", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Mastercard Global", "role": "Business Analyst", "status": "received", "source": "Workday"}, {"date": "2026-05-02", "company": "Boster Group", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-02", "company": "Titan Wealth Holdings", "role": "Business Analyst", "status": "rejected", "source": "Lever"}, {"date": "2026-05-01", "company": "PA Consulting", "role": "Business Analyst", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-05-01", "company": "AEJ Consulting", "role": "Operations Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Sentric", "role": "Operational Insights Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Capital Dynamics", "role": "Technology Support Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Selby Jennings", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Dabster", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "AXA", "role": "Data Analyst", "status": "received", "source": "iCIMS"}, {"date": "2026-05-01", "company": "eFinancialCareers", "role": "Finance Senior Analyst", "status": "inprogress", "source": "eFinancialCareers"}, {"date": "2026-05-01", "company": "Allbyn", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Finatal", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Harnham", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "OCR Alpha", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "TechNET IT Recruitment", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Morgan McKinley", "role": "Financial Accountant", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Telefonica Tech", "role": "Junior Service Delivery Manager", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-05-01", "company": "We Do Group", "role": "Financial Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "GLuOnTalentPartners", "role": "Business Transformation Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Datasource Recruitment", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Ocean Red", "role": "Trading Operations Team Lead", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "Reed Talent Solutions", "role": "Business Analyst eTrading", "status": "applied", "source": "LinkedIn"}, {"date": "2026-05-01", "company": "BCG London", "role": "Associate", "status": "rejected", "source": "Direct"}, {"date": "2026-05-01", "company": "Pioneer Search", "role": "Application Support Analyst", "status": "rejected", "source": "Broadbean"}, {"date": "2026-05-01", "company": "WEX", "role": "Financial Operations Analyst", "status": "rejected", "source": "Workday"}, {"date": "2026-04-30", "company": "BlackRock", "role": "Portfolio Architect Cash Management", "status": "received", "source": "Workday"}, {"date": "2026-04-30", "company": "Scendea", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "MCS Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Hays", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Anson McCade", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Citi", "role": "Lead IT Analyst End User Computing", "status": "received", "source": "Workday"}, {"date": "2026-04-30", "company": "Elevation Recruitment Group", "role": "Finance Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Zopa", "role": "Data Analyst", "status": "received", "source": "Lever"}, {"date": "2026-04-30", "company": "Metrea Management", "role": "IT Ops Analyst", "status": "received", "source": "ADP"}, {"date": "2026-04-30", "company": "Collinson Group", "role": "Finance Ops Business Analyst", "status": "received", "source": "Teamtailor"}, {"date": "2026-04-30", "company": "Burns Sheehan", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Miller Insurance Services", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "RedCat Digital", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Xcede", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Orbis Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Primis", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Eames Consulting", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Adecco", "role": "Business Analyst Third Party Risk", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Luxoft", "role": "Lead Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "TESTQ Technologies", "role": "Data Modeler", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Telefonica Tech", "role": "Data Consultant", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-04-30", "company": "IT Works Health", "role": "LIMS Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Insight Select", "role": "IT Finance Business Partner", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "ISS STOXX", "role": "Client Specialist", "status": "rejected", "source": "Workday"}, {"date": "2026-04-30", "company": "Fusion Practices", "role": "(application viewed)", "status": "received", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Handle Recruitment", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Pantheon Ventures", "role": "(role unspecified)", "status": "rejected", "source": "Greenhouse"}, {"date": "2026-04-30", "company": "FundSense", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Coforge", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Datatech Analytics", "role": "Data Analyst SQL", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Danos Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Mondrian Alpha", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "TAM Asset Management", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "B2E Consulting", "role": "Business Analyst Portfolio Optimisation", "status": "rejected", "source": "Direct"}, {"date": "2026-04-30", "company": "S&P Global", "role": "Product Consultant", "status": "rejected", "source": "Workday"}, {"date": "2026-04-30", "company": "Capco", "role": "(role unspecified)", "status": "rejected", "source": "Direct"}, {"date": "2026-04-30", "company": "Citi", "role": "IT Business Lead Analyst", "status": "rejected", "source": "Workday"}, {"date": "2026-04-30", "company": "Gazelle Global", "role": "Business Analyst Teleco", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Thomson Keene", "role": "Senior Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Reed", "role": "Technical Data Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Goodman Masson", "role": "Commercial Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "twentyAI", "role": "Analytics Engineer Fintech", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Gulermak Renewables", "role": "Junior Financial Investment Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "AbsoluteLabs", "role": "Business Solution Consultant", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "JasperRose", "role": "Royalty Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-30", "company": "Legal & General", "role": "Investments Middle Office Senior Analyst", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-04-30", "company": "RedRock Consulting", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Frontier Economics", "role": "Technology Business Analyst", "status": "rejected", "source": "Workday"}, {"date": "2026-04-29", "company": "MLM Search", "role": "Reg-Tech Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "La Fosse", "role": "Product Owner", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Cameron Pink", "role": "Technical Accounts Assistant Insurance", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Barclays", "role": "(role unspecified)", "status": "rejected", "source": "Workday"}, {"date": "2026-04-29", "company": "SCUBE", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Ignite Talent Group", "role": "IT Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Robertson Sumner", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Major Players", "role": "Creative Performance Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-29", "company": "Coinbase", "role": "Payments Risk Analyst II", "status": "rejected", "source": "Direct"}, {"date": "2026-04-29", "company": "techstack Recruitment", "role": "Technical Product Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "EQ Hazell Carr", "role": "Implementation Consultant Pension Data", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Datatech Analytics", "role": "Advanced Analytics Data Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Downing", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Globant", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Futureheads Recruitment", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "N Consulting Global", "role": "Workday Financial Consultant", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Robert Walters", "role": "Operations Analyst Systematic Fund", "status": "rejected", "source": "Broadbean"}, {"date": "2026-04-28", "company": "Telefonica Tech", "role": "Junior Service Delivery Manager", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-04-28", "company": "BSI Group", "role": "Finance Business Partner", "status": "rejected", "source": "Workday"}, {"date": "2026-04-28", "company": "Barclays", "role": "(role unspecified)", "status": "rejected", "source": "Workday"}, {"date": "2026-04-28", "company": "Walker Lovell", "role": "Transaction Analytics Manager", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-28", "company": "Caraffi", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-27", "company": "Betway Global", "role": "Data Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-27", "company": "Advocate Group", "role": "Financial Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-27", "company": "Howden", "role": "Business Analyst Programme Support", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-27", "company": "Legal & General", "role": "Investment Reporting Actuary Manager", "status": "rejected", "source": "SmartRecruiters"}, {"date": "2026-04-27", "company": "Teya", "role": "Finance Business Modelling Associate", "status": "rejected", "source": "Ashby"}, {"date": "2026-04-26", "company": "Stott and May", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Gravitas Recruitment", "role": "Business Analyst Consultancy", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Nigel Frank International", "role": "Dynamics 365 CE Support Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "SS&C Intralinks", "role": "Technical Consultant", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Pontoon Solutions", "role": "Regulatory Specialist", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Transform Together Consulting", "role": "Principal Consultant Process Excellence", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Ubique Systems", "role": "Technical Business Analyst Capital Markets", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Lorien", "role": "Digital Business Analyst Insurtech", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-26", "company": "Engelhart", "role": "Middle Office Analyst", "status": "rejected", "source": "Greenhouse"}, {"date": "2026-04-25", "company": "Elite Technology", "role": "Database Administrator", "status": "rejected", "source": "Greenhouse"}, {"date": "2026-04-25", "company": "Capgemini Engineering", "role": "Business Analyst Process Owner", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "HN Services", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "TrueNorth", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Technify Talent", "role": "Technical Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "CBSbutler", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Hawksworth", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Man Group", "role": "Solutions Graduate Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Albany Beck", "role": "Junior PMO Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Symmetry Search Staffing", "role": "Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Adecco Group", "role": "Business Analyst Energy", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Now Resourcing", "role": "ServiceNow Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Telefonica Tech", "role": "Data Consultant", "status": "received", "source": "SmartRecruiters"}, {"date": "2026-04-25", "company": "MHA Executive", "role": "Financial Operations Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-25", "company": "Carnegie Consulting", "role": "Advent Geneva Implementation Specialist", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Systematix", "role": "Junior IT Supply Chain PM", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Safetykleen", "role": "IT Business Analyst D365 Finance", "status": "rejected", "source": "Direct"}, {"date": "2026-04-24", "company": "Experis", "role": "Business Analyst Insurance Data", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "TTC Group", "role": "Business Analyst Anti-Financial Crime", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Tata Consultancy Services", "role": "SAP Supply Chain Management Consultant", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "HOK Consulting", "role": "Technical Business Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Benchmark Mineral Intelligence", "role": "Analyst", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Amazon", "role": "Technical Customer Service Specialist", "status": "received", "source": "Amazon"}, {"date": "2026-04-24", "company": "Salt", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Capital Dynamics", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "WSS Associates", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Frazer Jones", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Ignite Talent Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "LSEG", "role": "Business Analyst", "status": "rejected", "source": "Workday"}, {"date": "2026-04-24", "company": "Betway Global", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Spotlight Sports Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "MarkJames", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Cameron Pink", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Morgan McKinley", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Nicoll Curtin", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "We Do Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Major Players", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Engelhart", "role": "Middle Office Analyst", "status": "received", "source": "Greenhouse"}, {"date": "2026-04-24", "company": "TalentPool", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Baker Charles", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Morgan Hunt", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Advocate Group", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "JSS", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Mastek", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Howden", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "ARQ", "role": "Data Analyst", "status": "received", "source": "Ashby"}, {"date": "2026-04-24", "company": "Daiwa Capital Markets", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Lazard Asset Management", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "COREcruitment", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "TikTok", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}, {"date": "2026-04-24", "company": "Calyptus", "role": "(via recruiter)", "status": "applied", "source": "LinkedIn"}];
-const STATUS={rejected:{label:"Rejected",cls:"b-rejected",color:"var(--red)"},applied:{label:"No Reply",cls:"b-applied",color:"var(--blue)"},received:{label:"Acknowledged",cls:"b-received",color:"var(--accent)"},inprogress:{label:"In Progress",cls:"b-inprogress",color:"var(--amber)"},response:{label:"Response",cls:"b-response",color:"var(--purple)"}};
-let activeFilter='all';
-function counts(d){const c={total:0,rejected:0,applied:0,received:0,inprogress:0,response:0};d.forEach(r=>{c.total++;c[r.status]++});return c}
-function fmtDate(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'})}
-function pct(a,b){return b?Math.round(a/b*100):0}
-function renderMetrics(){const c=counts(APPLICATIONS);const r=c.received+c.response+c.rejected+c.inprogress;document.getElementById('mTotal').textContent=c.total;document.getElementById('mRejected').textContent=c.rejected;document.getElementById('mRejPct').textContent=pct(c.rejected,c.total)+'% of total';document.getElementById('mResponses').textContent=r;document.getElementById('mPending').textContent=c.applied}
-function renderDonut(){const c=counts(APPLICATIONS);const circ=2*Math.PI*54;const order=['rejected','received','inprogress','response','applied'];let off=0;order.forEach(k=>{const arc=document.getElementById('arc-'+k);const f=c[k]/c.total;const dash=f*circ;arc.setAttribute('stroke-dasharray',dash+' '+(circ-dash));arc.setAttribute('stroke-dashoffset',-off);off+=dash});document.getElementById('donutTotal').textContent=c.total;const leg=[{key:'rejected',label:'Rejected',count:c.rejected},{key:'received',label:'Acknowledged',count:c.received},{key:'inprogress',label:'In Progress',count:c.inprogress},{key:'response',label:'Response',count:c.response},{key:'applied',label:'No Reply',count:c.applied}];document.getElementById('donutLegend').innerHTML=leg.map(l=>`<div class="dleg"><div class="dleg-left"><span class="dleg-dot" style="background:${STATUS[l.key].color}"></span>${l.label}</div><span class="dleg-val">${l.count}</span></div>`).join('')}
-function renderRateBars(){const c=counts(APPLICATIONS);const bars=[{name:'Any response',val:pct(c.total-c.applied,c.total),color:'var(--accent)'},{name:'Rejection rate',val:pct(c.rejected,c.total),color:'var(--red)'},{name:'Acknowledged',val:pct(c.received,c.total),color:'var(--teal)'},{name:'In progress',val:pct(c.inprogress,c.total),color:'var(--amber)'},{name:'Recruiter reply',val:pct(c.response,c.total),color:'var(--purple)'}];document.getElementById('rateBars').innerHTML=bars.map(b=>`<div><div class="rate-header"><span class="rate-name">${b.name}</span><span class="rate-pct">${b.val}%</span></div><div class="rate-track"><div class="rate-fill" style="width:${b.val}%;background:${b.color}"></div></div></div>`).join('')}
-function setFilter(f,btn){activeFilter=f;document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');filterTable()}
-function filterTable(){const q=document.getElementById('searchBox').value.toLowerCase().trim();let data=APPLICATIONS;if(activeFilter!=='all')data=data.filter(r=>r.status===activeFilter);if(q)data=data.filter(r=>r.company.toLowerCase().includes(q)||r.role.toLowerCase().includes(q));const tbody=document.getElementById('tbody');tbody.innerHTML=data.length?data.map(r=>`<tr><td class="td-date">${fmtDate(r.date)}</td><td class="td-company">${r.company}</td><td class="td-role" title="${r.role}">${r.role}</td><td class="td-source">${r.source}</td><td><span class="badge ${STATUS[r.status].cls}">${STATUS[r.status].label}</span></td></tr>`).join(''):'<tr><td colspan="5"><div class="empty">no results</div></td></tr>';document.getElementById('countRow').textContent=`showing ${data.length} of ${APPLICATIONS.length} applications`}
-function init(){const d=new Date(LAST_UPDATED);document.getElementById('lastUpdated').textContent='updated '+d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});document.getElementById('syncTime').textContent='synced '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});renderMetrics();renderDonut();renderRateBars();filterTable()}
-init();
+let APPS=[
+  {id:1,date:"2026-05-02",company:"DVF Recruitment",role:"Application Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:2,date:"2026-05-02",company:"Amtis Digital",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:3,date:"2026-05-02",company:"X4 Technology",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:4,date:"2026-05-02",company:"Jefferies",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:5,date:"2026-05-02",company:"Orchestrade",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:6,date:"2026-05-02",company:"Ventula Consulting",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:7,date:"2026-05-02",company:"Vertical Advantage",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:8,date:"2026-05-02",company:"ERG Group",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:9,date:"2026-05-02",company:"SearchWorks",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:10,date:"2026-05-02",company:"Raymond James",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:11,date:"2026-05-02",company:"Halliday Marx",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:12,date:"2026-05-02",company:"RBC",role:"Associate",status:"received",source:"Workday",notes:""},
+  {id:13,date:"2026-05-02",company:"A2Dominion Group",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:14,date:"2026-05-02",company:"Fanatics Betting Gaming",role:"Data Analyst III Regulatory Reporting",status:"received",source:"Direct",notes:""},
+  {id:15,date:"2026-05-02",company:"Goldman Sachs",role:"(via Oracle)",status:"received",source:"Direct",notes:""},
+  {id:16,date:"2026-05-02",company:"Succession Group",role:"Business Analyst",status:"received",source:"Direct",notes:""},
+  {id:17,date:"2026-05-02",company:"Mastercard Global",role:"Business Analyst",status:"received",source:"Workday",notes:""},
+  {id:18,date:"2026-05-02",company:"Boster Group",role:"Business Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:19,date:"2026-05-02",company:"Titan Wealth Holdings",role:"Business Analyst",status:"rejected",source:"Lever",notes:""},
+  {id:20,date:"2026-05-01",company:"PA Consulting",role:"Business Analyst",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:21,date:"2026-05-01",company:"AEJ Consulting",role:"Operations Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:22,date:"2026-05-01",company:"Capital Dynamics",role:"Technology Support Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:23,date:"2026-05-01",company:"AXA",role:"Data Analyst",status:"received",source:"iCIMS",notes:""},
+  {id:24,date:"2026-05-01",company:"eFinancialCareers",role:"Finance Senior Analyst",status:"followup",source:"eFinancialCareers",notes:"One step closer — waiting"},
+  {id:25,date:"2026-05-01",company:"BCG London",role:"Associate",status:"rejected",source:"Direct",notes:""},
+  {id:26,date:"2026-05-01",company:"Pioneer Search",role:"Application Support Analyst",status:"rejected",source:"Broadbean",notes:""},
+  {id:27,date:"2026-05-01",company:"WEX",role:"Financial Operations Analyst",status:"rejected",source:"Workday",notes:""},
+  {id:28,date:"2026-05-01",company:"Telefonica Tech",role:"Junior Service Delivery Manager",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:29,date:"2026-04-30",company:"BlackRock",role:"Portfolio Architect Cash Management",status:"received",source:"Workday",notes:""},
+  {id:30,date:"2026-04-30",company:"Citi",role:"Lead IT Analyst End User Computing",status:"received",source:"Workday",notes:""},
+  {id:31,date:"2026-04-30",company:"Zopa",role:"Data Analyst",status:"received",source:"Lever",notes:""},
+  {id:32,date:"2026-04-30",company:"Metrea Management",role:"IT Ops Analyst",status:"received",source:"ADP",notes:""},
+  {id:33,date:"2026-04-30",company:"Collinson Group",role:"Finance Ops Business Analyst",status:"received",source:"Teamtailor",notes:""},
+  {id:34,date:"2026-04-30",company:"Fusion Practices",role:"(application viewed)",status:"received",source:"LinkedIn",notes:""},
+  {id:35,date:"2026-04-30",company:"Pantheon Ventures",role:"(role unspecified)",status:"rejected",source:"Greenhouse",notes:""},
+  {id:36,date:"2026-04-30",company:"ISS STOXX",role:"Client Specialist",status:"rejected",source:"Workday",notes:""},
+  {id:37,date:"2026-04-30",company:"Telefonica Tech",role:"Data Consultant",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:38,date:"2026-04-30",company:"B2E Consulting",role:"Business Analyst Portfolio Optimisation",status:"rejected",source:"Direct",notes:""},
+  {id:39,date:"2026-04-30",company:"S&P Global",role:"Product Consultant",status:"rejected",source:"Workday",notes:""},
+  {id:40,date:"2026-04-30",company:"Capco",role:"(role unspecified)",status:"rejected",source:"Direct",notes:""},
+  {id:41,date:"2026-04-30",company:"Citi",role:"IT Business Lead Analyst",status:"rejected",source:"Workday",notes:""},
+  {id:42,date:"2026-04-30",company:"Legal & General",role:"Investments Middle Office Senior Analyst",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:43,date:"2026-04-30",company:"Burns Sheehan",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:44,date:"2026-04-30",company:"Eames Consulting",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:45,date:"2026-04-30",company:"Datasource Recruitment",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:46,date:"2026-04-30",company:"Gazelle Global",role:"Business Analyst Teleco",status:"noreply",source:"LinkedIn",notes:""},
+  {id:47,date:"2026-04-30",company:"Thomson Keene",role:"Senior Business Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:48,date:"2026-04-30",company:"Reed",role:"Technical Data Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:49,date:"2026-04-30",company:"Goodman Masson",role:"Commercial Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:50,date:"2026-04-30",company:"twentyAI",role:"Analytics Engineer Fintech",status:"noreply",source:"LinkedIn",notes:""},
+  {id:51,date:"2026-04-29",company:"Frontier Economics",role:"Technology Business Analyst",status:"rejected",source:"Workday",notes:""},
+  {id:52,date:"2026-04-29",company:"Barclays",role:"(role unspecified)",status:"rejected",source:"Workday",notes:""},
+  {id:53,date:"2026-04-29",company:"Coinbase",role:"Payments Risk Analyst II",status:"rejected",source:"Direct",notes:""},
+  {id:54,date:"2026-04-29",company:"La Fosse",role:"Product Owner",status:"noreply",source:"LinkedIn",notes:""},
+  {id:55,date:"2026-04-29",company:"SCUBE",role:"Business Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:56,date:"2026-04-29",company:"Robertson Sumner",role:"Business Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:57,date:"2026-04-28",company:"Robert Walters",role:"Operations Analyst Systematic Fund",status:"rejected",source:"Broadbean",notes:""},
+  {id:58,date:"2026-04-28",company:"Telefonica Tech",role:"Junior Service Delivery Manager",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:59,date:"2026-04-28",company:"BSI Group",role:"Finance Business Partner",status:"rejected",source:"Workday",notes:""},
+  {id:60,date:"2026-04-28",company:"Barclays",role:"(role unspecified)",status:"rejected",source:"Workday",notes:""},
+  {id:61,date:"2026-04-27",company:"Legal & General",role:"Investment Reporting Actuary Manager",status:"rejected",source:"SmartRecruiters",notes:""},
+  {id:62,date:"2026-04-27",company:"Teya",role:"Finance Business Modelling Associate",status:"rejected",source:"Ashby",notes:""},
+  {id:63,date:"2026-04-26",company:"Engelhart",role:"Middle Office Analyst",status:"rejected",source:"Greenhouse",notes:""},
+  {id:64,date:"2026-04-25",company:"Elite Technology",role:"Database Administrator",status:"rejected",source:"Greenhouse",notes:""},
+  {id:65,date:"2026-04-25",company:"Capgemini Engineering",role:"Business Analyst Process Owner",status:"noreply",source:"LinkedIn",notes:""},
+  {id:66,date:"2026-04-25",company:"Man Group",role:"Solutions Graduate Analyst",status:"noreply",source:"LinkedIn",notes:""},
+  {id:67,date:"2026-04-25",company:"Telefonica Tech",role:"Data Consultant",status:"received",source:"SmartRecruiters",notes:""},
+  {id:68,date:"2026-04-24",company:"Safetykleen",role:"IT Business Analyst D365 Finance",status:"rejected",source:"Direct",notes:""},
+  {id:69,date:"2026-04-24",company:"LSEG",role:"Business Analyst",status:"rejected",source:"Workday",notes:""},
+  {id:70,date:"2026-04-24",company:"Amazon",role:"Technical Customer Service Specialist",status:"received",source:"Amazon",notes:""},
+  {id:71,date:"2026-04-24",company:"ARQ",role:"Data Analyst",status:"received",source:"Ashby",notes:""},
+  {id:72,date:"2026-04-24",company:"Engelhart",role:"Middle Office Analyst",status:"received",source:"Greenhouse",notes:""},
+  {id:73,date:"2026-04-24",company:"TikTok",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:74,date:"2026-04-24",company:"Daiwa Capital Markets",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:75,date:"2026-04-24",company:"Lazard Asset Management",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:76,date:"2026-04-23",company:"Modis",role:"Digital Product Analyst Financial Services",status:"received",source:"Broadbean",notes:""},
+  {id:77,date:"2026-04-23",company:"Sky",role:"Analytics Manager",status:"received",source:"Direct",notes:""},
+  {id:78,date:"2026-04-23",company:"Ameriprise",role:"HR Data and Reporting Analyst",status:"received",source:"Workday",notes:""},
+  {id:79,date:"2026-04-23",company:"HSBC",role:"(via recruiter)",status:"noreply",source:"LinkedIn",notes:""},
+  {id:80,date:"2026-04-23",company:"Vida Bank",role:"Management Information Analyst",status:"received",source:"Teamtailor",notes:""},
+  {id:81,date:"2026-04-23",company:"Telefonica Tech",role:"Junior Service Delivery Manager",status:"received",source:"SmartRecruiters",notes:""},
+  {id:82,date:"2026-04-23",company:"ECO Online",role:"(via recruiter)",status:"received",source:"Teamtailor",notes:""},
+  {id:83,date:"2026-04-23",company:"Anson McCade",role:"(application viewed)",status:"received",source:"LinkedIn",notes:""},
+  {id:84,date:"2026-04-23",company:"beaumont",role:"(application viewed)",status:"received",source:"LinkedIn",notes:""},
+  {id:85,date:"2026-04-23",company:"Elite Technology",role:"Database Administrator",status:"received",source:"Greenhouse",notes:""},
+  {id:86,date:"2026-04-23",company:"KPMG UK",role:"Forensic Data Analytics Manager",status:"noreply",source:"LinkedIn",notes:""},
+  {id:87,date:"2026-04-23",company:"We Do Group",role:"Finance Business Partner",status:"noreply",source:"LinkedIn",notes:""},
+  {id:88,date:"2026-04-23",company:"AXA UK",role:"Pricing Manager",status:"noreply",source:"LinkedIn",notes:""},
+  {id:89,date:"2026-04-23",company:"HCLTech",role:"Pricing & Market Data Migration Specialist",status:"noreply",source:"LinkedIn",notes:""},
+  {id:90,date:"2026-04-23",company:"Electric Car Scheme",role:"Revenue Operations Specialist",status:"noreply",source:"LinkedIn",notes:""},
+];
+
+let nextId = 91;
+
+const STATUS_META = {
+  noreply:   {label:"No Reply",   cls:"b-noreply",   color:"var(--blu)"},
+  received:  {label:"Response Received",  cls:"b-received",  color:"var(--ac)"},
+  rejected:  {label:"Rejected",   cls:"b-rejected",  color:"var(--red)"},
+  followup:  {label:"Follow Up",  cls:"b-followup",  color:"var(--amb)"},
+  interview: {label:"Interview",  cls:"b-interview", color:"var(--pur)"},
+};
+
+let activeMonth = 'all';
+let activeStatus = 'all';
+let sortField = 'date';
+let sortDir = -1;
+
+// ── MONTHS ────────────────────────────────────────────────────────────────────
+function getMonths() {
+  const months = {};
+  APPS.forEach(a => {
+    const m = a.date.slice(0,7);
+    months[m] = (months[m]||0)+1;
+  });
+  return Object.keys(months).sort().reverse();
+}
+
+function monthLabel(ym) {
+  const [y,m] = ym.split('-');
+  return new Date(y,m-1,1).toLocaleString('en-GB',{month:'short',year:'2-digit'});
+}
+
+// ── FILTER ────────────────────────────────────────────────────────────────────
+function filtered() {
+  const q = document.getElementById('searchBox').value.toLowerCase().trim();
+  return APPS
+    .filter(a => activeMonth==='all' || a.date.startsWith(activeMonth))
+    .filter(a => activeStatus==='all' || a.status===activeStatus)
+    .filter(a => !q || a.company.toLowerCase().includes(q) || a.role.toLowerCase().includes(q))
+    .sort((a,b) => {
+      let av = a[sortField]||'', bv = b[sortField]||'';
+      return av < bv ? sortDir : av > bv ? -sortDir : 0;
+    });
+}
+
+// ── RENDER METRICS ────────────────────────────────────────────────────────────
+function renderMetrics() {
+  const c = {total:0,noreply:0,received:0,rejected:0,followup:0,interview:0};
+  APPS.forEach(a=>{c.total++;c[a.status]++});
+  document.getElementById('metricsBar').innerHTML = `
+    <div class="metric" style="--bc:var(--tx)">
+      <div class="metric-label">Total Applied</div>
+      <div class="metric-num">${c.total}</div>
+      <div class="metric-foot">since Jan 2026</div>
+    </div>
+    <div class="metric" style="--bc:var(--red);--nc:var(--red)">
+      <div class="metric-label">Rejected</div>
+      <div class="metric-num">${c.rejected}</div>
+      <div class="metric-foot">${Math.round(c.rejected/c.total*100)}% of total</div>
+    </div>
+    <div class="metric" style="--bc:var(--ac);--nc:var(--ac)">
+      <div class="metric-label">Response Received</div>
+      <div class="metric-num">${c.received}</div>
+      <div class="metric-foot">any reply</div>
+    </div>
+    <div class="metric" style="--bc:var(--blu);--nc:var(--blu)">
+      <div class="metric-label">No Reply</div>
+      <div class="metric-num">${c.noreply}</div>
+      <div class="metric-foot">awaiting</div>
+    </div>
+    <div class="metric" style="--bc:var(--amb);--nc:var(--amb)">
+      <div class="metric-label">Follow Up</div>
+      <div class="metric-num">${c.followup+c.interview}</div>
+      <div class="metric-foot">in progress</div>
+    </div>`;
+}
+
+// ── RENDER MONTH TABS ─────────────────────────────────────────────────────────
+function renderMonthNav() {
+  const months = getMonths();
+  const nav = document.getElementById('monthNav');
+  const counts = {};
+  APPS.forEach(a => { const m = a.date.slice(0,7); counts[m]=(counts[m]||0)+1; });
+  nav.innerHTML = `<button class="m-btn ${activeMonth==='all'?'on':''}" onclick="setMonth('all',this)">All months</button>`
+    + months.map(m=>`<button class="m-btn ${activeMonth===m?'on':''}" onclick="setMonth('${m}',this)">${monthLabel(m)}<span class="m-count">${counts[m]}</span></button>`).join('');
+}
+
+// ── RENDER MONTH SUMMARY ──────────────────────────────────────────────────────
+function renderMonthSummary() {
+  const pool = activeMonth==='all' ? APPS : APPS.filter(a=>a.date.startsWith(activeMonth));
+  const c = {total:pool.length,noreply:0,received:0,rejected:0,followup:0,interview:0};
+  pool.forEach(a=>c[a.status]++);
+  document.getElementById('monthSummary').innerHTML = `
+    <div class="ms-item"><div class="ms-num">${c.total}</div><div class="ms-label">Applied</div></div>
+    <div class="ms-item"><div class="ms-num" style="color:var(--red)">${c.rejected}</div><div class="ms-label">Rejected</div></div>
+    <div class="ms-item"><div class="ms-num" style="color:var(--ac)">${c.received}</div><div class="ms-label">Response</div></div>
+    <div class="ms-item"><div class="ms-num" style="color:var(--blu)">${c.noreply}</div><div class="ms-label">No Reply</div></div>
+    <div class="ms-item"><div class="ms-num" style="color:var(--amb)">${c.followup+c.interview}</div><div class="ms-label">Follow Up</div></div>`;
+}
+
+// ── RENDER TABLE ──────────────────────────────────────────────────────────────
+function renderTable() {
+  const data = filtered();
+  const tbody = document.getElementById('tbody');
+  if (!data.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty">no applications match this filter</div></td></tr>';
+  } else {
+    tbody.innerHTML = data.map(r=>{
+      const sm = STATUS_META[r.status];
+      return `<tr>
+        <td class="td-date">${fmtDate(r.date)}</td>
+        <td class="td-co">${r.company}</td>
+        <td class="td-role" title="${r.role}">${r.role}</td>
+        <td class="td-src">${r.source}</td>
+        <td class="td-status"><span class="badge ${sm.cls}">${sm.label}</span></td>
+        <td style="color:var(--mu);font-size:11px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.notes||'—'}</td>
+        <td class="td-actions"><button class="edit-btn" onclick="openEdit(${r.id})">edit</button></td>
+      </tr>`;
+    }).join('');
+  }
+  document.getElementById('countLabel').textContent = `${data.length} of ${APPS.length} applications`;
+  // Sort indicators
+  ['date','company'].forEach(f=>{
+    const el = document.getElementById('sort-'+f);
+    if(el) el.textContent = sortField===f ? (sortDir===-1?'↓':'↑') : '';
+  });
+}
+
+function fmtDate(d) {
+  return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'});
+}
+
+// ── FULL RENDER ───────────────────────────────────────────────────────────────
+function render() {
+  renderMetrics();
+  renderMonthNav();
+  renderMonthSummary();
+  renderTable();
+}
+
+// ── INTERACTIONS ──────────────────────────────────────────────────────────────
+function setMonth(m, btn) {
+  activeMonth = m;
+  render();
+}
+
+function setStatus(s, btn) {
+  activeStatus = s;
+  document.querySelectorAll('.s-btn').forEach(b=>b.classList.remove('on','on-solid'));
+  btn.classList.add('on');
+  render();
+}
+
+function sortBy(field) {
+  if(sortField===field) sortDir*=-1;
+  else { sortField=field; sortDir=-1; }
+  renderTable();
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openAddModal() {
+  document.getElementById('modalTitle').textContent = 'Add Application';
+  document.getElementById('editId').value = '';
+  document.getElementById('f-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('f-company').value = '';
+  document.getElementById('f-role').value = '';
+  document.getElementById('f-source').value = 'LinkedIn';
+  document.getElementById('f-status').value = 'noreply';
+  document.getElementById('f-notes').value = '';
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function openEdit(id) {
+  const a = APPS.find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('modalTitle').textContent = 'Edit Application';
+  document.getElementById('editId').value = id;
+  document.getElementById('f-date').value = a.date;
+  document.getElementById('f-company').value = a.company;
+  document.getElementById('f-role').value = a.role;
+  document.getElementById('f-source').value = a.source;
+  document.getElementById('f-status').value = a.status;
+  document.getElementById('f-notes').value = a.notes||'';
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function closeModal(e) {
+  if(!e || e.target===document.getElementById('modalBg'))
+    document.getElementById('modalBg').classList.remove('open');
+}
+
+function saveEntry() {
+  const id = document.getElementById('editId').value;
+  const entry = {
+    date: document.getElementById('f-date').value,
+    company: document.getElementById('f-company').value.trim(),
+    role: document.getElementById('f-role').value.trim()||'(role unspecified)',
+    source: document.getElementById('f-source').value,
+    status: document.getElementById('f-status').value,
+    notes: document.getElementById('f-notes').value.trim(),
+  };
+  if(!entry.company || !entry.date) return alert('Date and company are required');
+  if(id) {
+    const idx = APPS.findIndex(x=>x.id===parseInt(id));
+    if(idx>-1) APPS[idx] = {...APPS[idx],...entry};
+  } else {
+    APPS.unshift({id:nextId++,...entry});
+  }
+  document.getElementById('modalBg').classList.remove('open');
+  render();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+const d = new Date(LAST_UPDATED);
+document.getElementById('lastUpdated').textContent = 'updated '+d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('syncLabel').textContent = 'synced '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+render();
 </script>
 </body>
 </html>
