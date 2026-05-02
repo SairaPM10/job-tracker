@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saira — Job Tracker 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0c0c;--surface:#141414;--surface2:#1c1c1c;--surface3:#242424;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);--text:#f0ede8;--muted:#888882;--dim:#3a3a38;--accent:#c8f060;--red:#ff6b6b;--blue:#74b9ff;--amber:#fdcb6e;--purple:#c084fc;--teal:#55efc4}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 10%,rgba(200,240,96,0.04) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 90%,rgba(116,185,255,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+header{padding:3.5rem 0 2rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem}
+.title-block h1{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;margin-bottom:6px}
+.title-block h1 em{color:var(--accent);font-style:italic}
+.title-sub{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.sync-pill{display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);border-radius:99px;padding:5px 14px 5px 10px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:6px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.75)}}
+.last-updated{font-size:11px;color:var(--dim);font-family:'DM Mono',monospace}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--dim);border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:1.5rem}
+.metric{background:var(--surface);padding:1.4rem 1.2rem 1.2rem;position:relative;transition:background .15s}
+.metric:hover{background:var(--surface2)}
+.metric::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--bar-color,transparent);opacity:.7}
+.metric-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:.6rem}
+.metric-num{font-family:'DM Serif Display',serif;font-size:3rem;line-height:1;color:var(--num-color,var(--text));margin-bottom:3px}
+.metric-foot{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim)}
+.two-col{display:grid;grid-template-columns:240px 1fr;gap:1rem;margin-bottom:1.5rem}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem}
+.panel-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:1.2rem}
+.donut-ring{position:relative;width:130px;height:130px;margin:0 auto 1.2rem}
+.donut-ring svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-total{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;color:var(--text)}
+.donut-sub{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.donut-legend{display:flex;flex-direction:column;gap:8px}
+.dleg{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+.dleg-left{display:flex;align-items:center;gap:7px;color:var(--muted)}
+.dleg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dleg-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
+.rate-bars{display:flex;flex-direction:column;gap:1.1rem}
+.rate-header{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px}
+.rate-name{color:var(--muted)}
+.rate-pct{font-family:'DM Mono',monospace;color:var(--text)}
+.rate-track{height:5px;background:var(--surface3);border-radius:99px;overflow:hidden}
+.rate-fill{height:100%;border-radius:99px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.table-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.5rem}
+.table-toolbar{display:flex;gap:8px;align-items:center;padding:1rem 1.4rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.search-wrap{flex:1;min-width:180px;position:relative}
+.search-wrap::before{content:'⌕';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+#searchBox{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:7px 12px 7px 30px;font-family:'Syne',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .15s}
+#searchBox:focus{border-color:var(--accent)}
+#searchBox::placeholder{color:var(--dim)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.f-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:99px;padding:5px 12px;font-family:'Syne',sans-serif;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.f-btn:hover{color:var(--text);background:var(--surface3)}
+.f-btn.on{background:var(--accent);color:#0c0c0c;border-color:var(--accent)}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;cursor:default}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td{padding:11px 14px;font-size:13px;color:var(--text);vertical-align:middle}
+.td-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
+.td-company{font-weight:600;white-space:nowrap}
+.td-role{color:var(--muted);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td-source{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:10px;font-weight:600;letter-spacing:.04em;white-space:nowrap;border:1px solid transparent}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.b-rejected{background:rgba(255,107,107,.10);color:var(--red);border-color:rgba(255,107,107,.2)}.b-rejected::before{background:var(--red)}
+.b-applied{background:rgba(116,185,255,.10);color:var(--blue);border-color:rgba(116,185,255,.2)}.b-applied::before{background:var(--blue)}
+.b-received{background:rgba(200,240,96,.10);color:var(--accent);border-color:rgba(200,240,96,.2)}.b-received::before{background:var(--accent)}
+.b-inprogress{background:rgba(253,203,110,.10);color:var(--amber);border-color:rgba(253,203,110,.2)}.b-inprogress::before{background:var(--amber)}
+.b-response{background:rgba(192,132,252,.10);color:var(--purple);border-color:rgba(192,132,252,.2)}.b-response::before{background:var(--purple)}
+.empty{text-align:center;padding:3rem;color:var(--dim);font-size:13px;font-family:'DM Mono',monospace}
+.count-row{font-family:'DM Mono',monospace;font-size:11px;color:var(--dim);padding:8px 14px;border-top:1px solid var(--border)}
+footer{border-top:1px solid var(--border);padding:1.5rem 0 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--dim)}
+.footer-note a{color:var(--muted);text-decoration:none}
+.footer-note a:hover{color:var(--accent)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:3px}
+@media(max-width:700px){.metrics{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="title-block">
+    <h1>Job <em>Tracker</em></h1>
+    <div class="title-sub">SAIRA PRAGYAN &middot; JAN 2026 &rarr; PRESENT</div>
+  </div>
+  <div style="text-align:right">
+    <div class="sync-pill"><span class="pulse"></span><span id="syncTime">synced today</span></div>
+    <div class="last-updated" id="lastUpdated">&mdash;</div>
+  </div>
+</header>
+<div class="metrics">
+  <div class="metric" style="--bar-color:var(--text);--num-color:var(--text)"><div class="metric-label">Total Applied</div><div class="metric-num" id="mTotal">0</div><div class="metric-foot">tracked applications</div></div>
+  <div class="metric" style="--bar-color:var(--red);--num-color:var(--red)"><div class="metric-label">Rejected</div><div class="metric-num" id="mRejected">0</div><div class="metric-foot" id="mRejPct">-</div></div>
+  <div class="metric" style="--bar-color:var(--accent);--num-color:var(--accent)"><div class="metric-label">Responses</div><div class="metric-num" id="mResponses">0</div><div class="metric-foot">any reply received</div></div>
+  <div class="metric" style="--bar-color:var(--blue);--num-color:var(--blue)"><div class="metric-label">Awaiting Reply</div><div class="metric-num" id="mPending">0</div><div class="metric-foot">no response yet</div></div>
+</div>
+<div class="two-col">
+  <div class="panel">
+    <div class="panel-label">Status Mix</div>
+    <div class="donut-ring">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="54" fill="none" stroke="#1c1c1c" stroke-width="16"/>
+        <circle id="arc-rejected" cx="65" cy="65" r="54" fill="none" stroke="var(--red)" stroke-width="16" stroke-dasharray="0 339.3"/>
+        <circle id="arc-received" cx="65" cy="65" r="54" fill="none" stroke="var(--accent)" stroke-width="16" stroke-dasharray="0 339.3"/>
+        <circle id="arc-inprogress" cx="65" cy="65" r="54" fill="none" stroke="var(--amber)" stroke-width="16" stroke-dasharray="0 339.3"/>
+        <circle id="arc-response" cx="65" cy="65" r="54" fill="none" stroke="var(--purple)" stroke-width="16" stroke-dasharray="0 339.3"/>
+        <circle id="arc-applied" cx="65" cy="65" r="54" fill="none" stroke="var(--blue)" stroke-width="16" stroke-dasharray="0 339.3"/>
+      </svg>
+      <div class="donut-center"><div class="donut-total" id="donutTotal">0</div><div class="donut-sub">total</div></div>
+    </div>
+    <div class="donut-legend" id="donutLegend"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-label">Response Rates</div>
+    <div class="rate-bars" id="rateBars"></div>
+  </div>
+</div>
+<div class="table-panel">
+  <div class="table-toolbar">
+    <div class="search-wrap"><input id="searchBox" type="text" placeholder="Search company or role..." oninput="filterTable()"></div>
+    <div class="filters">
+      <button class="f-btn on" onclick="setFilter('all',this)">All</button>
+      <button class="f-btn" onclick="setFilter('rejected',this)">Rejected</button>
+      <button class="f-btn" onclick="setFilter('received',this)">Acknowledged</button>
+      <button class="f-btn" onclick="setFilter('applied',this)">No Reply</button>
+      <button class="f-btn" onclick="setFilter('inprogress',this)">In Progress</button>
+      <button class="f-btn" onclick="setFilter('response',this)">Response</button>
+    </div>
+  </div>
+  <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Company</th><th>Role</th><th>Source</th><th>Status</th></tr></thead><tbody id="tbody"></tbody></table></div>
+  <div class="count-row" id="countRow">-</div>
+</div>
+<footer>
+  <div class="footer-note">Auto-updated daily via fetch_jobs.py &middot; <a href="https://github.com/SairaPM10/job-tracker" target="_blank">github.com/SairaPM10/job-tracker</a></div>
+  <div class="footer-note">Jan 2026 &rarr; present</div>
+</footer>
+</div>
+<script>
+const LAST_UPDATED="2026-05-02";
+const APPLICATIONS=[
+{date:"2026-05-02",company:"Citi",role:"Regulatory Operations - Client Assets Team Manager",status:"inprogress",source:"Workday"},
+{date:"2026-05-02",company:"Mastercard Global",role:"Business Analyst",status:"received",source:"Workday"},
+{date:"2026-05-02",company:"Boster Group",role:"Business Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-02",company:"Titan Wealth Holdings",role:"Business Analyst",status:"rejected",source:"Lever"},
+{date:"2026-05-01",company:"PA Consulting",role:"Business Analyst",status:"rejected",source:"SmartRecruiters"},
+{date:"2026-05-01",company:"AEJ Consulting",role:"Operations Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Deutsche Bank",role:"Data Analytics & Insight Generation",status:"rejected",source:"Workday"},
+{date:"2026-05-01",company:"Capital Dynamics",role:"Technology Support Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Selby Jennings",role:"(via recruiter)",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"AXA",role:"Data Analyst",status:"received",source:"iCIMS"},
+{date:"2026-05-01",company:"BCG London",role:"Associate Full-Time",status:"rejected",source:"Direct"},
+{date:"2026-05-01",company:"Pioneer Search",role:"Application Support Analyst",status:"rejected",source:"Broadbean"},
+{date:"2026-05-01",company:"WEX",role:"Financial Operations Analyst",status:"rejected",source:"Workday"},
+{date:"2026-05-01",company:"Scendea",role:"(via InMail)",status:"response",source:"LinkedIn"},
+{date:"2026-05-01",company:"Morgan McKinley",role:"Financial Accountant",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Telefonica Tech",role:"Junior Service Delivery Manager",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"We Do Group",role:"Financial Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"GLuOnTalentPartners",role:"Business Transformation Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Datasource Recruitment",role:"Business Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Ocean Red",role:"Trading Operations Team Lead",status:"applied",source:"LinkedIn"},
+{date:"2026-05-01",company:"Reed Talent Solutions",role:"Business Analyst eTrading",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"MCS Group",role:"(via recruiter)",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Hays",role:"(via recruiter)",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Anson McCade",role:"(via recruiter)",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Citi",role:"Lead IT Analyst End User Computing",status:"received",source:"Workday"},
+{date:"2026-04-30",company:"Elevation Recruitment Group",role:"Finance Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Zopa",role:"Data Analyst",status:"received",source:"Lever"},
+{date:"2026-04-30",company:"Telefonica Tech",role:"Data Consultant",status:"rejected",source:"SmartRecruiters"},
+{date:"2026-04-30",company:"IT Works Health",role:"LIMS Business Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Insight Select",role:"IT Finance Business Partner",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"ISS STOXX",role:"Client Specialist",status:"rejected",source:"Workday"},
+{date:"2026-04-30",company:"Pantheon Ventures",role:"(role unspecified)",status:"rejected",source:"Greenhouse"},
+{date:"2026-04-30",company:"B2E Consulting",role:"Business Analyst Portfolio Optimisation",status:"rejected",source:"Direct"},
+{date:"2026-04-30",company:"S&P Global",role:"Product Consultant Distribution Solutions",status:"rejected",source:"Workday"},
+{date:"2026-04-30",company:"Capco",role:"(role unspecified)",status:"rejected",source:"Direct"},
+{date:"2026-04-30",company:"Gazelle Global",role:"Business Analyst Teleco",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Thomson Keene",role:"Senior Business Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Reed",role:"Technical Data Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Goodman Masson",role:"Commercial Analyst",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Citi",role:"IT Business Lead Analyst",status:"rejected",source:"Workday"},
+{date:"2026-04-30",company:"twentyAI",role:"Analytics Engineer Fintech",status:"applied",source:"LinkedIn"},
+{date:"2026-04-30",company:"Gulermak Renewables",role:"Junior Financial Investment Analyst",status:"applied",source:"LinkedIn"}
+];
+const STATUS={rejected:{label:"Rejected",cls:"b-rejected",color:"var(--red)"},applied:{label:"No Reply",cls:"b-applied",color:"var(--blue)"},received:{label:"Acknowledged",cls:"b-received",color:"var(--accent)"},inprogress:{label:"In Progress",cls:"b-inprogress",color:"var(--amber)"},response:{label:"Response",cls:"b-response",color:"var(--purple)"}};
+let activeFilter='all';
+function counts(d){const c={total:0,rejected:0,applied:0,received:0,inprogress:0,response:0};d.forEach(r=>{c.total++;c[r.status]++});return c}
+function fmtDate(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'})}
+function pct(a,b){return b?Math.round(a/b*100):0}
+function renderMetrics(){const c=counts(APPLICATIONS);const r=c.received+c.response+c.rejected+c.inprogress;document.getElementById('mTotal').textContent=c.total;document.getElementById('mRejected').textContent=c.rejected;document.getElementById('mRejPct').textContent=pct(c.rejected,c.total)+'% of total';document.getElementById('mResponses').textContent=r;document.getElementById('mPending').textContent=c.applied}
+function renderDonut(){const c=counts(APPLICATIONS);const circ=2*Math.PI*54;const order=['rejected','received','inprogress','response','applied'];let off=0;order.forEach(k=>{const arc=document.getElementById('arc-'+k);const f=c[k]/c.total;const dash=f*circ;arc.setAttribute('stroke-dasharray',dash+' '+(circ-dash));arc.setAttribute('stroke-dashoffset',-off);off+=dash});document.getElementById('donutTotal').textContent=c.total;const leg=[{key:'rejected',label:'Rejected',count:c.rejected},{key:'received',label:'Acknowledged',count:c.received},{key:'inprogress',label:'In Progress',count:c.inprogress},{key:'response',label:'Response',count:c.response},{key:'applied',label:'No Reply',count:c.applied}];document.getElementById('donutLegend').innerHTML=leg.map(l=>`<div class="dleg"><div class="dleg-left"><span class="dleg-dot" style="background:${STATUS[l.key].color}"></span>${l.label}</div><span class="dleg-val">${l.count}</span></div>`).join('')}
+function renderRateBars(){const c=counts(APPLICATIONS);const bars=[{name:'Any response',val:pct(c.total-c.applied,c.total),color:'var(--accent)'},{name:'Rejection rate',val:pct(c.rejected,c.total),color:'var(--red)'},{name:'Acknowledged',val:pct(c.received,c.total),color:'var(--teal)'},{name:'In progress',val:pct(c.inprogress,c.total),color:'var(--amber)'},{name:'Recruiter reply',val:pct(c.response,c.total),color:'var(--purple)'}];document.getElementById('rateBars').innerHTML=bars.map(b=>`<div><div class="rate-header"><span class="rate-name">${b.name}</span><span class="rate-pct">${b.val}%</span></div><div class="rate-track"><div class="rate-fill" style="width:${b.val}%;background:${b.color}"></div></div></div>`).join('')}
+function setFilter(f,btn){activeFilter=f;document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');filterTable()}
+function filterTable(){const q=document.getElementById('searchBox').value.toLowerCase().trim();let data=APPLICATIONS;if(activeFilter!=='all')data=data.filter(r=>r.status===activeFilter);if(q)data=data.filter(r=>r.company.toLowerCase().includes(q)||r.role.toLowerCase().includes(q));const tbody=document.getElementById('tbody');tbody.innerHTML=data.length?data.map(r=>`<tr><td class="td-date">${fmtDate(r.date)}</td><td class="td-company">${r.company}</td><td class="td-role" title="${r.role}">${r.role}</td><td class="td-source">${r.source}</td><td><span class="badge ${STATUS[r.status].cls}">${STATUS[r.status].label}</span></td></tr>`).join(''):'<tr><td colspan="5"><div class="empty">no results</div></td></tr>';document.getElementById('countRow').textContent=`showing ${data.length} of ${APPLICATIONS.length} applications`}
+function init(){const d=new Date(LAST_UPDATED);document.getElementById('lastUpdated').textContent='updated '+d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});document.getElementById('syncTime').textContent='synced '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});renderMetrics();renderDonut();renderRateBars();filterTable()}
+init();
+</script>
+</body>
+</html>
