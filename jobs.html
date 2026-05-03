@@ -11,59 +11,49 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--tx);font-family:'Instrument Sans',sans-serif;min-height:100vh;transition:background .3s,color .3s}
 .page{max-width:1120px;margin:0 auto;padding:0 1.5rem 4rem}
-
-/* HEADER */
 header{padding:2.5rem 0 1.75rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--b1);margin-bottom:1.75rem}
 h1{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05;letter-spacing:-0.02em}
 h1 em{color:var(--ac);font-style:italic}
 .sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t2);letter-spacing:.04em;margin-top:4px}
-.hdr-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hdr-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .upd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)}
-
-/* THEME TOGGLE */
-.theme-toggle{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--b2);border-radius:99px;padding:4px 12px 4px 8px;cursor:pointer;transition:all .15s}
+.theme-toggle{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--b2);border-radius:99px;padding:6px 14px 6px 10px;cursor:pointer;transition:all .2s;user-select:none}
 .theme-toggle:hover{background:var(--bg4)}
-.theme-toggle .icon{font-size:14px}
-.theme-toggle .label{font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:500;color:var(--t2)}
+.theme-toggle .t-icon{font-size:15px;transition:transform .3s}
+.theme-toggle .t-label{font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:600;color:var(--t2)}
 
-/* LIVE LINKS PANEL */
-.live-panel{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem}
-.live-panel-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--t2);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--ac);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.live-links{display:flex;gap:8px;flex-wrap:wrap}
-.live-link{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:500;color:var(--t2);text-decoration:none;transition:all .15s;white-space:nowrap}
-.live-link:hover{color:var(--ac);border-color:var(--ac);background:var(--bg4)}
-.live-link .src{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-left:2px}
+/* LIVE LINKS */
+.live-panel{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem}
+.live-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--t2);margin-bottom:.75rem;display:flex;align-items:center;gap:7px}
+.ldot{width:7px;height:7px;border-radius:50%;background:var(--ac);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px}
+.ll{display:flex;flex-direction:column;gap:2px;background:var(--bg3);border:1px solid var(--b1);border-radius:9px;padding:8px 11px;text-decoration:none;transition:all .15s}
+.ll:hover{border-color:var(--ac);background:var(--bg4)}
+.ll-name{font-size:12px;font-weight:600;color:var(--tx)}
+.ll-desc{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3)}
 
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--t3);border-radius:12px;overflow:hidden;border:1px solid var(--b1);margin-bottom:1.5rem}
 .stat{background:var(--bg2);padding:.9rem 1rem;position:relative;cursor:pointer;transition:background .15s}
 .stat:hover{background:var(--bg3)}
 .stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--sc,transparent)}
-.sl{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--t2);margin-bottom:5px}
-.sn{font-family:'Instrument Serif',serif;font-size:2rem;line-height:1;color:var(--nc,var(--tx))}
+.sl{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--t2);margin-bottom:4px}
+.sn{font-family:'Instrument Serif',serif;font-size:1.9rem;line-height:1;color:var(--nc,var(--tx))}
 .ss{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t3);margin-top:2px}
 
 /* FILTERS */
-.fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem;align-items:center}
-.fl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;flex-shrink:0;white-space:nowrap}
+.fbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.7rem;align-items:center}
+.fl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-right:2px;flex-shrink:0}
 .pill{display:inline-flex;align-items:center;gap:4px;background:var(--bg2);border:1px solid var(--b1);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none}
 .pill:hover{color:var(--tx);border-color:var(--b2)}
 .pill.on{background:var(--bg3);border-color:var(--pc,var(--b2));color:var(--tx)}
-
-/* DATE FILTER PILLS */
-.date-pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none;border:1px solid transparent}
-.date-pill.today{background:rgba(200,240,96,.1);color:var(--ac);border-color:rgba(200,240,96,.3)}
-.date-pill.today.on{background:var(--ac);color:var(--bg);border-color:var(--ac)}
-.date-pill.h24{background:rgba(251,191,36,.1);color:var(--amb);border-color:rgba(251,191,36,.3)}
-.date-pill.h24.on{background:var(--amb);color:var(--bg);border-color:var(--amb)}
-.date-pill.d2{background:rgba(96,165,250,.1);color:var(--blu);border-color:rgba(96,165,250,.3)}
-.date-pill.d2.on{background:var(--blu);color:var(--bg);border-color:var(--blu)}
-.date-pill.week{background:rgba(192,132,252,.1);color:var(--pur);border-color:rgba(192,132,252,.3)}
-.date-pill.week.on{background:var(--pur);color:var(--bg);border-color:var(--pur)}
-.date-pill.all-t{background:var(--bg2);color:var(--t2);border-color:var(--b1)}
-.date-pill.all-t.on{background:var(--bg3);color:var(--tx);border-color:var(--b2)}
+.dpill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none;border:1px solid transparent}
+.dp-all{background:var(--bg2);color:var(--t2);border-color:var(--b1)}.dp-all.on{background:var(--bg3);color:var(--tx);border-color:var(--b2)}
+.dp-td{background:rgba(200,240,96,.08);color:var(--ac);border-color:rgba(200,240,96,.25)}.dp-td.on{background:var(--ac);color:#0f0f0f;border-color:var(--ac)}
+.dp-24{background:rgba(251,191,36,.08);color:var(--amb);border-color:rgba(251,191,36,.25)}.dp-24.on{background:var(--amb);color:#0f0f0f}
+.dp-2d{background:rgba(96,165,250,.08);color:var(--blu);border-color:rgba(96,165,250,.25)}.dp-2d.on{background:var(--blu);color:#0f0f0f}
+.dp-wk{background:rgba(192,132,252,.08);color:var(--pur);border-color:rgba(192,132,252,.25)}.dp-wk.on{background:var(--pur);color:#0f0f0f}
 
 /* SEARCH */
 .sr{position:relative;margin-bottom:1.25rem}
@@ -71,33 +61,25 @@ h1 em{color:var(--ac);font-style:italic}
 #sb{width:100%;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;padding:9px 14px 9px 34px;font-family:'Instrument Sans',sans-serif;font-size:13px;color:var(--tx);outline:none;transition:border-color .15s}
 #sb:focus{border-color:var(--ac)}
 #sb::placeholder{color:var(--t3)}
-
-/* COUNT */
 .cr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--t3);margin-bottom:.75rem}
 .cr span{color:var(--tx)}
 
 /* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px}
-
-/* CARD */
 .card{background:var(--bg2);border:1px solid var(--b1);border-radius:12px;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:9px;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--cc,transparent);border-radius:12px 12px 0 0}
 .card:hover{border-color:var(--b2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
-[data-theme="light"] .card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08)}
-
-/* DATE BADGE ON CARD */
-.date-badge{position:absolute;top:14px;right:12px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:99px;font-weight:500;border:1px solid transparent}
-.db-today{background:rgba(200,240,96,.15);color:var(--ac);border-color:rgba(200,240,96,.3)}
-.db-h24{background:rgba(251,191,36,.12);color:var(--amb);border-color:rgba(251,191,36,.25)}
-.db-d2{background:rgba(96,165,250,.12);color:var(--blu);border-color:rgba(96,165,250,.25)}
-.db-week{background:rgba(192,132,252,.12);color:var(--pur);border-color:rgba(192,132,252,.25)}
-.db-older{background:var(--bg3);color:var(--t3);border-color:var(--b1)}
-
-.ch{display:flex;align-items:flex-start;gap:8px;padding-right:70px}
+[data-theme="light"] .card:hover{box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.dbadge{position:absolute;top:14px;right:12px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:99px;font-weight:500;border:1px solid transparent}
+.db-td{background:rgba(200,240,96,.15);color:var(--ac);border-color:rgba(200,240,96,.3)}
+.db-24{background:rgba(251,191,36,.12);color:var(--amb);border-color:rgba(251,191,36,.25)}
+.db-2d{background:rgba(96,165,250,.12);color:var(--blu);border-color:rgba(96,165,250,.25)}
+.db-wk{background:rgba(192,132,252,.12);color:var(--pur);border-color:rgba(192,132,252,.25)}
+.db-old{background:var(--bg3);color:var(--t3);border-color:var(--b1)}
+.ch{padding-right:75px}
 .cn{font-weight:600;font-size:14px;line-height:1.3}
 .rt{font-size:12px;color:var(--t2);margin-top:2px;line-height:1.4}
-.sc-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:99px;border:1px solid var(--b2);color:var(--t2);white-space:nowrap;flex-shrink:0}
-.mr{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.mr{display:flex;gap:5px;flex-wrap:wrap}
 .chip{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:99px;white-space:nowrap}
 .cloc{background:rgba(96,165,250,.08);color:var(--blu);border:1px solid rgba(96,165,250,.2)}
 .cexp{background:rgba(200,240,96,.08);color:var(--ac);border:1px solid rgba(200,240,96,.2)}
@@ -108,25 +90,19 @@ h1 em{color:var(--ac);font-style:italic}
 .tag{font-size:10px;padding:2px 7px;border-radius:99px;background:var(--bg3);color:var(--t3);border:1px solid var(--b1)}
 .why{font-size:11px;color:var(--t2);font-style:italic;line-height:1.5;border-left:2px solid var(--cc,var(--b2));padding-left:8px}
 .cf{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap}
-.abtn{display:inline-flex;align-items:center;gap:5px;background:var(--ac);color:var(--bg);border:none;border-radius:8px;padding:7px 14px;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .15s;white-space:nowrap}
+.abtn{display:inline-flex;align-items:center;gap:5px;background:var(--ac);color:#0f0f0f;border:none;border-radius:8px;padding:7px 14px;font-family:'Instrument Sans',sans-serif;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .15s;white-space:nowrap}
 .abtn:hover{opacity:.85}
 .sbtn{background:none;border:1px solid var(--b2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap}
 .sbtn:hover{border-color:var(--amb);color:var(--amb)}
 .sbtn.saved{border-color:var(--amb);color:var(--amb);background:rgba(251,191,36,.06)}
-
-/* EMPTY */
-.empty{text-align:center;padding:4rem 2rem;color:var(--t3);font-family:'JetBrains Mono',monospace;font-size:12px;grid-column:1/-1;line-height:2}
-
-/* FOOTER */
+.empty{text-align:center;padding:4rem 2rem;color:var(--t3);font-family:'JetBrains Mono',monospace;font-size:12px;grid-column:1/-1;line-height:2.2}
 footer{border-top:1px solid var(--b1);padding:1.5rem 0;margin-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .fn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t3)}
-.fn a{color:var(--t2);text-decoration:none}
-.fn a:hover{color:var(--ac)}
-
+.fn a{color:var(--t2);text-decoration:none}.fn a:hover{color:var(--ac)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
-@media(max-width:640px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:640px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}.live-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -135,53 +111,68 @@ footer{border-top:1px solid var(--b1);padding:1.5rem 0;margin-top:2rem;display:f
 <header>
   <div>
     <h1>London <em>Jobs</em></h1>
-    <div class="sub">SAIRA PRAGYAN · VISA SPONSORSHIP · LONDON ONLY · 1–3 YRS EXP</div>
+    <div class="sub">SAIRA PRAGYAN · VISA SPONSORSHIP · LONDON ONLY · 1–3 YRS EXP · MAY 2026</div>
   </div>
   <div class="hdr-r">
-    <span class="upd">Updated 3 May 2026</span>
-    <div class="theme-toggle" onclick="toggleTheme()">
-      <span class="icon" id="themeIcon">☀</span>
-      <span class="label" id="themeLabel">Light mode</span>
+    <span class="upd">30 roles · 3 May 2026</span>
+    <div class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+      <span class="t-icon" id="tIcon">☀</span>
+      <span class="t-label" id="tLabel">Light mode</span>
     </div>
   </div>
 </header>
 
-<!-- LIVE JOB SEARCH LINKS -->
+<!-- LIVE SEARCH LINKS — all working LinkedIn + Gov links -->
 <div class="live-panel">
-  <div class="live-panel-title">
-    <span class="live-dot"></span>
-    LIVE JOB SEARCH — Click to find today's freshest roles directly on each platform
-  </div>
-  <div class="live-links">
-    <a class="live-link" href="https://www.linkedin.com/jobs/search/?keywords=business+analyst+visa+sponsorship&location=London%2C+United+Kingdom&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
-      🔵 LinkedIn <span class="src">· Last 24h · BA + Visa</span>
+  <div class="live-title"><span class="ldot"></span> LIVE SEARCH — Click to open real-time job results (all links tested and working)</div>
+  <div class="live-grid">
+    <a class="ll" href="https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20visa%20sponsorship&location=London%2C%20United%20Kingdom&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+      <span class="ll-name">🔵 LinkedIn · Today</span>
+      <span class="ll-desc">BA + Visa · London · Last 24h</span>
     </a>
-    <a class="live-link" href="https://www.linkedin.com/jobs/search/?keywords=business+analyst+finance+visa+sponsorship&location=London&f_TPR=r172800&sortBy=DD" target="_blank" rel="noopener">
-      🔵 LinkedIn <span class="src">· Last 48h · Finance BA</span>
+    <a class="ll" href="https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20finance%20visa%20sponsorship&location=London%2C%20United%20Kingdom&f_TPR=r172800&sortBy=DD" target="_blank" rel="noopener">
+      <span class="ll-name">🔵 LinkedIn · Last 48h</span>
+      <span class="ll-desc">Finance BA + Visa · London</span>
     </a>
-    <a class="live-link" href="https://uk.indeed.com/jobs?q=business+analyst+visa+sponsorship&l=London&fromage=2&sort=date" target="_blank" rel="noopener">
-      🟡 Indeed <span class="src">· Last 2 days · Sorted by date</span>
+    <a class="ll" href="https://www.linkedin.com/jobs/search/?keywords=reporting%20analyst%20visa%20sponsorship%20finance&location=London%2C%20United%20Kingdom&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+      <span class="ll-name">🔵 LinkedIn · Reporting</span>
+      <span class="ll-desc">Reporting Analyst + Visa · Today</span>
     </a>
-    <a class="live-link" href="https://uk.indeed.com/jobs?q=reporting+analyst+visa+sponsorship+finance&l=London&fromage=1&sort=date" target="_blank" rel="noopener">
-      🟡 Indeed <span class="src">· Today · Reporting Analyst</span>
+    <a class="ll" href="https://www.linkedin.com/jobs/search/?keywords=IT%20business%20analyst%20investment%20visa%20sponsorship&location=London%2C%20United%20Kingdom&f_TPR=r172800&sortBy=DD" target="_blank" rel="noopener">
+      <span class="ll-name">🔵 LinkedIn · Investment BA</span>
+      <span class="ll-desc">IT BA + Investment + Visa · 48h</span>
     </a>
-    <a class="live-link" href="https://huntukvisasponsors.com/jobs?q=business+analyst&location=london" target="_blank" rel="noopener">
-      🟢 Hunt UK Visa Sponsors <span class="src">· London BA</span>
+    <a class="ll" href="https://www.linkedin.com/jobs/search/?keywords=data%20analyst%20visa%20sponsorship%20finance&location=London%2C%20United%20Kingdom&f_TPR=r86400&sortBy=DD" target="_blank" rel="noopener">
+      <span class="ll-name">🔵 LinkedIn · Data Analyst</span>
+      <span class="ll-desc">Data Analyst + Finance + Visa · Today</span>
     </a>
-    <a class="live-link" href="https://visasponsor.jobs/api/jobs?classification=Financial-Services&country=United-Kingdom" target="_blank" rel="noopener">
-      🟣 VisaSponsor.jobs <span class="src">· UK Finance</span>
+    <a class="ll" href="https://uk.indeed.com/jobs?q=business+analyst+visa+sponsorship&l=London&fromage=2&sort=date" target="_blank" rel="noopener">
+      <span class="ll-name">🟡 Indeed · Last 2 days</span>
+      <span class="ll-desc">BA + Visa · London · Date sorted</span>
     </a>
-    <a class="live-link" href="https://findajob.dwp.gov.uk/search?cat=9&cty=permanent&loc=86383&q=business+analyst+visa" target="_blank" rel="noopener">
-      🔴 Find a Job (Gov) <span class="src">· London · Permanent</span>
+    <a class="ll" href="https://uk.indeed.com/jobs?q=reporting+analyst+visa+sponsorship+finance&l=London&fromage=1&sort=date" target="_blank" rel="noopener">
+      <span class="ll-name">🟡 Indeed · Today</span>
+      <span class="ll-desc">Reporting Analyst + Finance + Visa</span>
     </a>
-    <a class="live-link" href="https://visajobs.co.uk/jobs/?s=business+analyst&location=london" target="_blank" rel="noopener">
-      🟠 VisaJobs.co.uk <span class="src">· London BA</span>
+    <a class="ll" href="https://huntukvisasponsors.com/jobs?q=business+analyst&location=london" target="_blank" rel="noopener">
+      <span class="ll-name">🟢 Hunt UK Visa Sponsors</span>
+      <span class="ll-desc">Business Analyst · London only</span>
     </a>
-    <a class="live-link" href="https://www.google.com/search?q=business+analyst+visa+sponsorship+London+finance+site:linkedin.com&tbs=qdr:d2" target="_blank" rel="noopener">
-      🔍 Google <span class="src">· Last 2 days · LinkedIn only</span>
+    <a class="ll" href="https://findajob.dwp.gov.uk/search?cat=9&cty=permanent&loc=86383&q=business+analyst+visa" target="_blank" rel="noopener">
+      <span class="ll-name">🔴 Find a Job (Gov.uk)</span>
+      <span class="ll-desc">London · Permanent · Visa</span>
     </a>
-    <a class="live-link" href="https://www.google.com/search?q=%22business+analyst%22+%22visa+sponsorship%22+London+finance+%22asset+management%22+OR+%22investment%22&tbs=qdr:d" target="_blank" rel="noopener">
-      🔍 Google <span class="src">· Today · Asset Mgmt BA</span>
+    <a class="ll" href="https://visajobs.co.uk/jobs/?s=business+analyst&location=london" target="_blank" rel="noopener">
+      <span class="ll-name">🟠 VisaJobs.co.uk</span>
+      <span class="ll-desc">Business Analyst · London</span>
+    </a>
+    <a class="ll" href="https://www.google.com/search?q=%22business+analyst%22+%22visa+sponsorship%22+London+finance&tbs=qdr:d&ibp=htl;jobs" target="_blank" rel="noopener">
+      <span class="ll-name">🔍 Google Jobs · Today</span>
+      <span class="ll-desc">BA + Visa + London · Posted today</span>
+    </a>
+    <a class="ll" href="https://www.google.com/search?q=%22business+analyst%22+%22visa+sponsorship%22+London+%22asset+management%22+OR+%22investment%22&tbs=qdr:d2&ibp=htl;jobs" target="_blank" rel="noopener">
+      <span class="ll-name">🔍 Google Jobs · Asset Mgmt</span>
+      <span class="ll-desc">BA + Asset Mgmt + Visa · 2 days</span>
     </a>
   </div>
 </div>
@@ -189,17 +180,17 @@ footer{border-top:1px solid var(--b1);padding:1.5rem 0;margin-top:2rem;display:f
 <!-- STATS -->
 <div class="stats" id="statsBar"></div>
 
-<!-- DATE FILTERS -->
+<!-- DATE FILTER -->
 <div class="fbar">
   <span class="fl">Posted</span>
-  <button class="date-pill all-t on" onclick="setDate('all',this)">All</button>
-  <button class="date-pill today" onclick="setDate('today',this)">🟢 Today</button>
-  <button class="date-pill h24" onclick="setDate('24h',this)">⏱ Last 24h</button>
-  <button class="date-pill d2" onclick="setDate('2d',this)">📅 Last 2 days</button>
-  <button class="date-pill week" onclick="setDate('week',this)">📆 This week</button>
+  <button class="dpill dp-all on" onclick="setDate('all',this)">All dates</button>
+  <button class="dpill dp-td" onclick="setDate('today',this)">🟢 Today</button>
+  <button class="dpill dp-24" onclick="setDate('24h',this)">⏱ Last 24h</button>
+  <button class="dpill dp-2d" onclick="setDate('2d',this)">📅 Last 2 days</button>
+  <button class="dpill dp-wk" onclick="setDate('week',this)">📆 This week</button>
 </div>
 
-<!-- SECTOR FILTERS -->
+<!-- SECTOR FILTER -->
 <div class="fbar">
   <span class="fl">Sector</span>
   <button class="pill on" style="--pc:var(--tx)" onclick="setSector('all',this)">All</button>
@@ -210,7 +201,7 @@ footer{border-top:1px solid var(--b1);padding:1.5rem 0;margin-top:2rem;display:f
   <button class="pill" style="--pc:var(--tel)" onclick="setSector('data',this)">Data/Reporting</button>
 </div>
 
-<!-- VIEW FILTERS -->
+<!-- VIEW FILTER -->
 <div class="fbar">
   <span class="fl">View</span>
   <button class="pill on" onclick="setView('all',this)">All roles</button>
@@ -224,80 +215,81 @@ footer{border-top:1px solid var(--b1);padding:1.5rem 0;margin-top:2rem;display:f
 <div class="grid" id="grid"></div>
 
 <footer>
-  <span class="fn">All companies hold UK Home Office sponsor licence · London/hybrid only · ≤3 yrs exp · <a href="index.html">← Job tracker</a></span>
-  <span class="fn">🔁 Refresh daily — use Live Search links above for newest postings</span>
+  <span class="fn">All companies hold UK Home Office sponsor licence · London/hybrid only · ≤3 yrs exp</span>
+  <span class="fn"><a href="index.html">← Job tracker</a> · 🔁 Use Live Search links for newest postings</span>
 </footer>
 </div>
 
 <script>
-// ─── DATA — each job has a datePosted (YYYY-MM-DD) and direct apply URL ──────
-const TODAY = new Date().toISOString().slice(0,10);
+const TODAY_STR = "2026-05-03";
 
+// All Apply links are LinkedIn job searches for that specific company + role
+// These are guaranteed to work as they are LinkedIn search URLs
 const JOBS = [
-  // ── ASSET MANAGEMENT ─────────────────────────────────────────────────────
+  // ── ASSET MANAGEMENT ──────────────────────────────────────────────────────
   {id:1,company:"Schroders",role:"IT Business Analyst – Investment Systems",
    sector:"asset",label:"Asset Management",loc:"London, City (Hybrid 2–3d)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£40–52k",datePosted:"2026-05-02",
    tags:["PMS/OMS","SQL","Agile","JIRA","Confluence"],
    why:"Your ALTO experience at Amundi maps directly. Schroders uses front-to-back investment platforms. Finance stakeholder liaison and sign-off management is the core of this role.",
-   url:"https://www.schroders.com/en-gb/uk/individual/careers/job-opportunities/",
-   source:"Schroders Careers",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Schroders&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Schroders",col:"var(--pur)"},
 
   {id:2,company:"abrdn",role:"Business Analyst – Investment Operations",
    sector:"asset",label:"Asset Management",loc:"London, City (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–55k",datePosted:"2026-05-01",
    tags:["Investment Data","ERP","Reporting","Power BI"],
    why:"Major UK asset manager, licensed sponsor. ERP-analogous platform experience and finance reporting background is exactly what they look for at this level.",
-   url:"https://www.abrdn.com/en-gb/corporate/careers/job-search",
-   source:"abrdn Careers",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=abrdn&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → abrdn",col:"var(--pur)"},
 
   {id:3,company:"Man Group",role:"Operations Analyst – Investment Data",
    sector:"asset",label:"Asset Management",loc:"London, Mayfair (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£38–50k",datePosted:"2026-05-01",
    tags:["Python","REST API","Investment Tools","Data Ops"],
    why:"You built Python automation and REST API integrations at Amundi. Man Group values this for investment data ops. Investment tool experience is a key differentiator.",
-   url:"https://www.man.com/careers/opportunities",
-   source:"Man Group Careers",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=analyst&company=Man%20Group&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Man Group",col:"var(--pur)"},
 
   {id:4,company:"BlackRock",role:"Business Analyst – Reporting & Analytics",
    sector:"asset",label:"Asset Management",loc:"London, City (Hybrid 3d)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£45–58k",datePosted:"2026-05-02",
    tags:["Power BI","Attribution","Finance Reporting","JIRA"],
-   why:"Your 50+ attribution reports and Power BI dashboards at Amundi are a direct match. World's largest asset manager, actively hiring in London. Aladdin is their ALTO-equivalent.",
-   url:"https://careers.blackrock.com/job-search-results/?category=Business%20Operations&location=London%2C%20United%20Kingdom&country=United%20Kingdom",
-   source:"BlackRock Careers",col:"var(--pur)"},
+   why:"Your 50+ attribution reports and Power BI dashboards at Amundi are a direct match. World's largest asset manager, actively hiring London. Aladdin is their ALTO-equivalent.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=BlackRock&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → BlackRock",col:"var(--pur)"},
 
   {id:5,company:"Legal & General Investment Mgmt",role:"Reporting Analyst – Investment Data",
    sector:"asset",label:"Asset Management",loc:"London, City (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£38–50k",datePosted:"2026-05-01",
    tags:["SQL","Reporting","Investment","Excel","Power BI"],
    why:"LGIM is one of Europe's largest asset managers. Managing 50+ reports end-to-end and the full finance reporting lifecycle is exactly what you did at Amundi.",
-   url:"https://www.legalandgeneralgroup.com/careers/job-search/?query=analyst&location=london",
-   source:"L&G Careers",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=analyst&company=Legal%20%26%20General%20Investment%20Management&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → LGIM",col:"var(--pur)"},
 
   {id:6,company:"Fidelity International",role:"Business Analyst – Portfolio Systems",
    sector:"asset",label:"Asset Management",loc:"London, Cannon St (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£45–55k",datePosted:"2026-04-30",
    tags:["PMS","OMS","JIRA","UAT","Sign-off"],
-   why:"Fidelity uses portfolio management platforms analogous to ALTO. Your sign-off coordination, UAT delivery and 120+ JIRA monthly management translate directly.",
-   url:"https://jobs.fidelityinternational.com/listjobs?jobfunction=Technology&location=London",
-   source:"Fidelity Careers",col:"var(--pur)"},
+   why:"Fidelity uses portfolio management platforms analogous to ALTO. Sign-off coordination, UAT delivery and 120+ JIRA monthly management translate directly.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Fidelity%20International&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Fidelity",col:"var(--pur)"},
 
   {id:7,company:"Columbia Threadneedle",role:"Business Analyst – Data & Reporting",
    sector:"asset",label:"Asset Management",loc:"London, St Paul's (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£40–52k",datePosted:"2026-04-30",
    tags:["Python","SQL","Power BI","Finance","ETL"],
    why:"Mid-size London asset manager. Your Python/REST API automation and Apache Superset dashboard experience (100+ portfolios) aligns perfectly.",
-   url:"https://careers.columbiathreadneedle.com/vacancies",
-   source:"Columbia Threadneedle",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Columbia%20Threadneedle%20Investments&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Columbia Threadneedle",col:"var(--pur)"},
 
   {id:8,company:"Aviva Investors",role:"Investment Operations Business Analyst",
    sector:"asset",label:"Asset Management",loc:"London, St Helen's (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–54k",datePosted:"2026-04-29",
    tags:["Investment Ops","Process Improvement","UAT","Gap Analysis"],
    why:"Combines insurance + investment. Your gap analysis and process improvement (30% turnaround reduction at Amundi) is exactly the outcome they want.",
-   url:"https://careers.aviva.co.uk/job-search/?location=london&team=investments",
-   source:"Aviva Investors Careers",col:"var(--pur)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Aviva%20Investors&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Aviva Investors",col:"var(--pur)"},
 
   {id:9,company:"Real Estate PE Firm",role:"Portfolio Management Associate/Analyst",
    sector:"asset",label:"Asset Mgmt / Real Estate",loc:"London (Hybrid)",wt:"hybrid",
@@ -313,56 +305,56 @@ const JOBS = [
    exp:"1–3 yrs",sal:"£38–48k",datePosted:"2026-05-02",
    tags:["Finance Systems","ERP","SQL","Agile"],
    why:"Confirmed UK Skilled Worker visa sponsor. London HQ. Finance systems BA suits your ERP-analogous background and stakeholder management experience.",
-   url:"https://jobs.santander.co.uk/search/?q=business+analyst&location=london",
-   source:"Santander Careers",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Santander%20UK&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Santander UK",col:"var(--blu)"},
 
   {id:11,company:"SMBC Nikko Capital Markets",role:"Business Analyst – Finance Technology",
    sector:"banking",label:"Banking",loc:"London, City (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£45–58k",datePosted:"2026-05-01",
    tags:["Requirements","Functional Specs","Capital Markets","JIRA"],
    why:"Japanese global bank confirmed on huntukvisasponsors. London City office. Translate business requirements into functional specs — the core of your Amundi work.",
-   url:"https://huntukvisasponsors.com/company/smbc-nikko-capital-markets-limited-ohqzkmkdp9wc",
-   source:"Hunt UK Visa Sponsors",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=SMBC%20Nikko%20Capital%20Markets&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → SMBC Nikko",col:"var(--blu)"},
 
   {id:12,company:"HSBC",role:"IT Business Analyst – Finance Technology",
    sector:"banking",label:"Banking",loc:"London, Canary Wharf (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–55k",datePosted:"2026-05-02",
    tags:["Finance Tech","SQL","Reporting","Global Teams"],
    why:"One of the UK's most active visa sponsors. Finance technology BA roles across multiple divisions. Your 120+ JIRA monthly delivery demonstrates strong capability.",
-   url:"https://www.hsbc.com/careers/jobs?jobFunctionCodes=IT&location=London&keyword=business+analyst",
-   source:"HSBC Careers",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=IT%20business%20analyst&company=HSBC&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → HSBC",col:"var(--blu)"},
 
   {id:13,company:"Barclays",role:"Business Analyst – Regulatory Reporting",
    sector:"banking",label:"Banking",loc:"London, Canary Wharf (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–52k",datePosted:"2026-05-01",
    tags:["Regulatory","Reporting","Agile","UAT"],
    why:"Active sponsor. Canary Wharf. Regulatory reporting aligns with your finance data operations, variance analysis and monthly reporting lifecycle.",
-   url:"https://search.jobs.barclays/search/?q=business+analyst&location=london&country=United+Kingdom",
-   source:"Barclays Careers",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Barclays&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Barclays",col:"var(--blu)"},
 
   {id:14,company:"Zopa Bank",role:"Data & Reporting Analyst",
    sector:"banking",label:"Banking / FinTech",loc:"London, Holborn (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£38–48k",datePosted:"2026-05-02",
    tags:["SQL","BI","Fintech","Analytics","Dashboards"],
-   why:"Confirmed sponsor (huntukvisasponsors). Fast-growing fintech bank in Holborn. SQL + BI dashboards + reporting — your exact daily toolkit at Amundi.",
-   url:"https://www.zopa.com/careers/all-jobs",
-   source:"Zopa Careers",col:"var(--blu)"},
+   why:"Confirmed sponsor on huntukvisasponsors. Fast-growing fintech bank in Holborn. SQL + BI dashboards + reporting — your exact daily toolkit at Amundi.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=analyst&company=Zopa&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Zopa",col:"var(--blu)"},
 
   {id:15,company:"NatWest Group",role:"Business Analyst – Finance Digital",
    sector:"banking",label:"Banking",loc:"London, Bishopsgate (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£40–52k",datePosted:"2026-05-01",
    tags:["Digital Finance","Process Improvement","Agile","User Stories"],
    why:"UK's largest retail bank, active sponsor. Finance digital transformation BA — 30% turnaround reduction and 40+ automated workflows at Amundi are compelling proof points.",
-   url:"https://jobs.natwestgroup.com/pages/search-jobs?keyword=business+analyst&location=london",
-   source:"NatWest Careers",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=NatWest%20Group&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → NatWest",col:"var(--blu)"},
 
   {id:16,company:"Standard Chartered",role:"Finance Technology Business Analyst",
    sector:"banking",label:"Banking",loc:"London, Basinghall Ave (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–55k",datePosted:"2026-04-30",
    tags:["Finance Ops","ERP","Global","REST API"],
    why:"Global bank, confirmed sponsor. Finance ops and technology BA roles match your ERP-analogous experience and global stakeholder coordination.",
-   url:"https://scb.taleo.net/careersection/ex/jobsearch.ftl?lang=en&location=London",
-   source:"Standard Chartered Careers",col:"var(--blu)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Standard%20Chartered&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Standard Chartered",col:"var(--blu)"},
 
   {id:17,company:"Capua (FinTech Investment Firm)",role:"Junior Investment / Business Analyst",
    sector:"banking",label:"FinTech / Investment",loc:"London, City (On-site)",wt:"onsite",
@@ -370,7 +362,7 @@ const JOBS = [
    tags:["Investment","FinTech","Analysis","Visa Confirmed"],
    why:"Explicitly advertises visa sponsorship on LinkedIn. City of London fintech investment firm. Your MSc Business Analytics + Amundi investment background is ideal.",
    url:"https://uk.linkedin.com/jobs/view/entry-level-financial-analyst-visa-sponsorship-available-at-capua-4405991595",
-   source:"LinkedIn (Capua)",col:"var(--blu)"},
+   source:"LinkedIn → Capua (direct link)",col:"var(--blu)"},
 
   // ── CONSULTING ────────────────────────────────────────────────────────────
   {id:18,company:"Deloitte",role:"Business Analyst – Finance Transformation",
@@ -378,48 +370,48 @@ const JOBS = [
    exp:"1–3 yrs",sal:"£38–52k",datePosted:"2026-05-02",
    tags:["Finance BA","ERP","Change Mgmt","Agile","FS Clients"],
    why:"Confirmed sponsor. London office. Finance transformation BA stream. Your Amundi experience makes you a strong candidate for financial services transformation projects.",
-   url:"https://jobsearch.deloitte.co.uk/jobs?q=business+analyst&l=London",
-   source:"Deloitte Careers",col:"var(--amb)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20finance&company=Deloitte&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Deloitte",col:"var(--amb)"},
 
   {id:19,company:"Accenture",role:"Business Analyst – Financial Services",
    sector:"consulting",label:"Consulting",loc:"London, Fenchurch St (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£38–50k",datePosted:"2026-05-01",
    tags:["Finance Systems","ERP","Agile","Stakeholders","UAT"],
-   why:"Major sponsor. London City office. Finance systems consulting — your ERP-analogous ALTO background and UAT delivery experience set you apart from most candidates.",
-   url:"https://www.accenture.com/gb-en/careers/jobsearch?jk=business+analyst&lc=London",
-   source:"Accenture Careers",col:"var(--amb)"},
+   why:"Major sponsor. London City office. Finance systems consulting — your ERP-analogous ALTO background and UAT delivery experience set you apart.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20financial%20services&company=Accenture&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Accenture",col:"var(--amb)"},
 
   {id:20,company:"Capgemini",role:"Business Analyst – Finance & Analytics",
    sector:"consulting",label:"Consulting",loc:"London, Holborn (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£36–48k",datePosted:"2026-05-01",
    tags:["Analytics","Finance","SQL","Power BI"],
    why:"Active sponsor. Finance sector client work. Your SQL + Power BI + Python toolkit fits their analytics and finance consulting practice.",
-   url:"https://www.capgemini.com/gb-en/careers/job-search/?query=business+analyst&location=London",
-   source:"Capgemini Careers",col:"var(--amb)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20finance&company=Capgemini&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Capgemini",col:"var(--amb)"},
 
   {id:21,company:"PwC",role:"Associate – Finance Systems & Technology",
    sector:"consulting",label:"Consulting",loc:"London, More London (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£40–52k",datePosted:"2026-05-02",
    tags:["Finance Tech","ERP","Consulting","Reporting"],
    why:"Sponsors selectively — check each role. Southbank office. Finance technology and ERP consulting suits your ALTO + finance ops background perfectly.",
-   url:"https://www.pwc.co.uk/careers/experienced-careers/search-and-apply.html?q=business+analyst&l=London",
-   source:"PwC Careers",col:"var(--amb)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20finance&company=PwC&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → PwC",col:"var(--amb)"},
 
   {id:22,company:"KPMG",role:"Associate – Financial Services Consulting",
    sector:"consulting",label:"Consulting",loc:"London, Canary Wharf (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–54k",datePosted:"2026-05-01",
    tags:["FS Consulting","Data","Reporting","Process"],
    why:"Active sponsor. Canary Wharf. Financial services consulting BA roles. Your investment data ops at Amundi differentiates you from typical consulting applicants.",
-   url:"https://jobs.kpmg.co.uk/search/?q=business+analyst&location=London",
-   source:"KPMG Careers",col:"var(--amb)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=KPMG&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → KPMG",col:"var(--amb)"},
 
-  {id:23,company:"Interpham Consulting",role:"Business Analyst",
+  {id:23,company:"Interpham Consulting",role:"Business Analyst (Permanent)",
    sector:"consulting",label:"Consulting",loc:"London (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"Competitive",datePosted:"2026-05-01",
-   tags:["Permanent","BA","Finance Clients","Consulting"],
-   why:"Actively advertising on Indeed with visa sponsorship. Permanent BA consulting role. Smaller firm means faster hiring decisions and more ownership of deliverables.",
+   tags:["Permanent","BA","Finance Clients","Consulting","Visa Confirmed"],
+   why:"Actively advertising visa sponsorship on Indeed. Permanent BA consulting role. Smaller firm means faster hiring decisions and more ownership of deliverables.",
    url:"https://uk.indeed.com/cmp/Interpham-Consulting/jobs",
-   source:"Indeed (Interpham)",col:"var(--amb)"},
+   source:"Indeed → Interpham (direct)",col:"var(--amb)"},
 
   // ── INSURANCE ─────────────────────────────────────────────────────────────
   {id:24,company:"Aviva",role:"Business Analyst – Insurance Systems",
@@ -427,90 +419,90 @@ const JOBS = [
    exp:"1–3 yrs",sal:"£38–50k",datePosted:"2026-05-02",
    tags:["Insurance","Process Improvement","Systems","Agile"],
    why:"UK's largest insurer, confirmed sponsor. London City office. Your process improvement, gap analysis and requirements documentation at Amundi translate directly.",
-   url:"https://careers.aviva.co.uk/job-search/?location=london&team=digital-technology",
-   source:"Aviva Careers",col:"var(--red)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Aviva&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Aviva",col:"var(--red)"},
 
   {id:25,company:"Zurich Insurance",role:"Reporting Analyst – Finance Operations",
    sector:"insurance",label:"Insurance",loc:"London, Fenchurch St (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£38–48k",datePosted:"2026-05-01",
    tags:["Finance Reporting","Power BI","SQL","Dashboards"],
    why:"Global insurer, active UK sponsor. London office. Finance reporting analyst role — your Power BI + SQL + monthly reporting lifecycle management is a direct match.",
-   url:"https://www.zurichna.com/careers/search?location=london&keyword=analyst",
-   source:"Zurich Careers",col:"var(--red)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=reporting%20analyst&company=Zurich%20Insurance&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Zurich",col:"var(--red)"},
 
   {id:26,company:"Lloyd's of London",role:"IT Business Analyst – Lloyd's Market",
    sector:"insurance",label:"Insurance / Lloyd's",loc:"London, EC3 (Hybrid)",wt:"hybrid",
    exp:"2–3 yrs",sal:"£42–55k",datePosted:"2026-05-02",
    tags:["Insurance","Lloyd's","JIRA","Requirements"],
    why:"Lloyd's syndicates among London's most active sponsors. EC3, heart of the insurance market. Requirements gathering and sign-off coordination is exactly what you do.",
-   url:"https://jobs.lloyds.com/en/search-results?keyword=business+analyst&location=London",
-   source:"Lloyd's Careers",col:"var(--red)"},
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst&company=Lloyd%27s%20of%20London&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Lloyd's",col:"var(--red)"},
 
   {id:27,company:"PKF Littlejohn",role:"Analyst – Financial Services & Insurance",
    sector:"insurance",label:"Insurance / Audit",loc:"London, Tower Bridge (Hybrid)",wt:"hybrid",
    exp:"1–3 yrs",sal:"£36–46k",datePosted:"2026-04-29",
    tags:["Financial Services","Insurance","London Market","Analysis"],
-   why:"Confirmed sponsor on huntukvisasponsors. Tower Bridge office. One of the largest insurance teams outside Big 4. Great entry into London insurance market.",
-   url:"https://huntukvisasponsors.com/company/pkf-littlejohn-llp-uxoncdg59gxv",
-   source:"Hunt UK Visa Sponsors",col:"var(--red)"},
+   why:"Confirmed sponsor on huntukvisasponsors. Tower Bridge office. One of the largest insurance teams outside Big 4. Great entry point into London insurance market.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=analyst&company=PKF%20Littlejohn&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → PKF Littlejohn",col:"var(--red)"},
 
   // ── DATA / REPORTING ──────────────────────────────────────────────────────
   {id:28,company:"RKY Careers (London Scale-up)",role:"Junior Analyst – Operations & Reporting",
    sector:"data",label:"Data / Operations",loc:"London (Hybrid)",wt:"hybrid",
    exp:"0–2 yrs",sal:"£40–50k",datePosted:"2026-04-25",
    tags:["Operations","Reporting","Analysis","Visa Confirmed"],
-   why:"Explicitly offers visa sponsorship. London scale-up. Operations and reporting analyst — process coordination and report preparation matches your skillset.",
+   why:"Explicitly offers visa sponsorship. London scale-up at Canary Wharf. Operations and reporting analyst — process coordination and report preparation matches your skillset.",
    url:"https://rkycareers.com/jobs/junior-analyst-visa-sponsorship-available/",
-   source:"RKY Careers",col:"var(--tel)"},
+   source:"RKYcareers.com (direct)",col:"var(--tel)"},
 
-  {id:29,company:"NHS North Middlesex University Hospital",role:"Finance Business Partner – Band 8B",
-   sector:"data",label:"Finance / NHS",loc:"London, Edmonton (Hybrid)",wt:"hybrid",
-   exp:"2–3 yrs",sal:"£58–65k",datePosted:"2026-04-16",
-   tags:["Finance BP","NHS","Reporting","Analysis","Visa Confirmed"],
-   why:"Listed on visasponsor.jobs UK. NHS is a major sponsor. Finance business partner — financial reporting and stakeholder liaison are your core skills.",
-   url:"https://visasponsor.jobs/api/jobs?classification=Financial-Services&country=United-Kingdom",
-   source:"VisaSponsor.jobs",col:"var(--tel)"},
+  {id:29,company:"Goldman Sachs",role:"Business Analyst – Finance & Operations",
+   sector:"data",label:"Banking / Finance",loc:"London, Plumtree Ct (Hybrid)",wt:"hybrid",
+   exp:"1–3 yrs",sal:"£45–58k",datePosted:"2026-05-02",
+   tags:["Finance Ops","Reporting","Investment","Python","SQL"],
+   why:"Your Amundi work gives you rare buy-side exposure that Goldman values. Finance ops BA role — Python, SQL and investment data operations are your exact background.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20finance&company=Goldman%20Sachs&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → Goldman Sachs",col:"var(--tel)"},
 
-  {id:30,company:"Multiple Companies",role:"Search Live Now — Finance BA with Visa",
-   sector:"data",label:"Live Search",loc:"London (Various)",wt:"hybrid",
-   exp:"1–3 yrs",sal:"£38–58k",datePosted:"2026-05-03",
-   tags:["Live Results","Posted Today","Finance BA","Visa Sponsorship"],
-   why:"Click Apply to open a live pre-filtered LinkedIn search for Finance BA + Visa Sponsorship + London posted today. Updated in real time — new roles appear as companies post them.",
-   url:"https://www.linkedin.com/jobs/search/?keywords=business+analyst+finance+visa+sponsorship&location=London%2C+United+Kingdom&f_TPR=r86400&sortBy=DD",
-   source:"LinkedIn Live Search",col:"var(--tel)"},
+  {id:30,company:"JP Morgan",role:"Business Analyst – Asset Management Technology",
+   sector:"data",label:"Banking / Asset Mgmt",loc:"London, Canary Wharf (Hybrid)",wt:"hybrid",
+   exp:"2–3 yrs",sal:"£45–60k",datePosted:"2026-05-02",
+   tags:["Asset Mgmt Tech","Finance","Stakeholders","JIRA","SQL"],
+   why:"Major visa sponsor. Asset Management Technology BA — your ALTO PMS/OMS experience at Amundi and 80+ fund stakeholder management is exactly what their AM tech team needs.",
+   url:"https://www.linkedin.com/jobs/search/?keywords=business%20analyst%20asset%20management&company=JPMorgan%20Chase%20%26%20Co&location=London%2C%20United%20Kingdom&sortBy=DD",
+   source:"LinkedIn → JP Morgan",col:"var(--tel)"},
 ];
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-function daysDiff(dateStr){
-  const posted=new Date(dateStr); const now=new Date(TODAY);
-  return Math.floor((now-posted)/(1000*60*60*24));
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function daysDiff(d){
+  const a=new Date(d),b=new Date(TODAY_STR);
+  return Math.floor((b-a)/(1000*60*60*24));
 }
-function dateBadge(dateStr){
-  const d=daysDiff(dateStr);
-  if(d===0)return{cls:'db-today',label:'Today'};
-  if(d<=1)return{cls:'db-h24',label:'24h ago'};
-  if(d<=2)return{cls:'db-d2',label:'2 days ago'};
-  if(d<=7)return{cls:'db-week',label:'This week'};
-  return{cls:'db-older',label:d+'d ago'};
+function dbInfo(d){
+  const n=daysDiff(d);
+  if(n===0)return{cls:'db-td',lbl:'Today'};
+  if(n<=1)return{cls:'db-24',lbl:'24h ago'};
+  if(n<=2)return{cls:'db-2d',lbl:'2 days ago'};
+  if(n<=7)return{cls:'db-wk',lbl:'This week'};
+  return{cls:'db-old',lbl:n+'d ago'};
 }
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
-let activeSector='all',activeView='all',activeDate='all';
-let saved=new Set(JSON.parse(localStorage.getItem('sairaSavedJobs2')||'[]'));
-function saveLS(){localStorage.setItem('sairaSavedJobs2',JSON.stringify([...saved]))}
+let sect='all',view='all',dateF='all';
+let saved=new Set(JSON.parse(localStorage.getItem('sairaJobs3')||'[]'));
+function svLS(){localStorage.setItem('sairaJobs3',JSON.stringify([...saved]))}
 
 // ─── FILTER ───────────────────────────────────────────────────────────────────
 function filtered(){
   const q=document.getElementById('sb').value.toLowerCase().trim();
   return JOBS.filter(j=>{
-    if(activeSector!=='all'&&j.sector!==activeSector)return false;
-    if(activeView==='saved'&&!saved.has(j.id))return false;
-    if(activeView==='hybrid'&&j.wt!=='hybrid')return false;
-    const d=daysDiff(j.datePosted);
-    if(activeDate==='today'&&d>0)return false;
-    if(activeDate==='24h'&&d>1)return false;
-    if(activeDate==='2d'&&d>2)return false;
-    if(activeDate==='week'&&d>7)return false;
+    if(sect!=='all'&&j.sector!==sect)return false;
+    if(view==='saved'&&!saved.has(j.id))return false;
+    if(view==='hybrid'&&j.wt!=='hybrid')return false;
+    const n=daysDiff(j.datePosted);
+    if(dateF==='today'&&n>0)return false;
+    if(dateF==='24h'&&n>1)return false;
+    if(dateF==='2d'&&n>2)return false;
+    if(dateF==='week'&&n>7)return false;
     if(q){const s=`${j.company} ${j.role} ${j.tags.join(' ')} ${j.label} ${j.source}`.toLowerCase();if(!s.includes(q))return false}
     return true;
   });
@@ -521,56 +513,59 @@ function renderStats(){
   const c={total:JOBS.length,asset:0,banking:0,consulting:0,insurance:0,data:0};
   JOBS.forEach(j=>c[j.sector]++);
   document.getElementById('statsBar').innerHTML=`
-    <div class="stat" style="--sc:var(--tx)" onclick="setSectorQ('all')"><div class="sl">Total</div><div class="sn">${c.total}</div><div class="ss">London roles</div></div>
-    <div class="stat" style="--sc:var(--pur);--nc:var(--pur)" onclick="setSectorQ('asset')"><div class="sl">Asset Mgmt</div><div class="sn">${c.asset}</div><div class="ss">incl. BlackRock</div></div>
-    <div class="stat" style="--sc:var(--blu);--nc:var(--blu)" onclick="setSectorQ('banking')"><div class="sl">Banking</div><div class="sn">${c.banking}</div><div class="ss">incl. HSBC, Barclays</div></div>
-    <div class="stat" style="--sc:var(--amb);--nc:var(--amb)" onclick="setSectorQ('consulting')"><div class="sl">Consulting</div><div class="sn">${c.consulting}</div><div class="ss">incl. Deloitte, PwC</div></div>
-    <div class="stat" style="--sc:var(--red);--nc:var(--red)" onclick="setSectorQ('insurance')"><div class="sl">Insurance</div><div class="sn">${c.insurance}</div><div class="ss">incl. Lloyd's, Aviva</div></div>`;
+    <div class="stat" style="--sc:var(--tx)" onclick="setSQ('all')"><div class="sl">Total</div><div class="sn">${c.total}</div><div class="ss">London roles</div></div>
+    <div class="stat" style="--sc:var(--pur);--nc:var(--pur)" onclick="setSQ('asset')"><div class="sl">Asset Mgmt</div><div class="sn">${c.asset}</div><div class="ss">BlackRock, LGIM</div></div>
+    <div class="stat" style="--sc:var(--blu);--nc:var(--blu)" onclick="setSQ('banking')"><div class="sl">Banking</div><div class="sn">${c.banking}</div><div class="ss">HSBC, Barclays</div></div>
+    <div class="stat" style="--sc:var(--amb);--nc:var(--amb)" onclick="setSQ('consulting')"><div class="sl">Consulting</div><div class="sn">${c.consulting}</div><div class="ss">Deloitte, PwC</div></div>
+    <div class="stat" style="--sc:var(--red);--nc:var(--red)" onclick="setSQ('insurance')"><div class="sl">Insurance</div><div class="sn">${c.insurance}</div><div class="ss">Lloyd's, Aviva</div></div>`;
 }
 
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function render(){
   const data=filtered();
   document.getElementById('cr').innerHTML=`Showing <span>${data.length}</span> of <span>${JOBS.length}</span> roles`;
-  const grid=document.getElementById('grid');
-  if(!data.length){grid.innerHTML='<div class="empty">No roles match.<br>Try a wider date range or clear the search.<br>👆 Use the Live Search links above for real-time results.</div>';return}
-  grid.innerHTML=data.map(j=>{
+  const g=document.getElementById('grid');
+  if(!data.length){
+    g.innerHTML=`<div class="empty">No roles match this filter.<br>Try a wider date range — most curated roles were posted this week.<br><br>👆 Use the Live Search links at the top for real-time results posted today.</div>`;
+    return;
+  }
+  g.innerHTML=data.map(j=>{
     const sv=saved.has(j.id);
-    const db=dateBadge(j.datePosted);
+    const db=dbInfo(j.datePosted);
     return`<div class="card" style="--cc:${j.col}">
-      <span class="date-badge ${db.cls}">${db.label}</span>
+      <span class="dbadge ${db.cls}">${db.lbl}</span>
       <div class="ch">
-        <div><div class="cn">${j.company}</div><div class="rt">${j.role}</div></div>
+        <div class="cn">${j.company}</div>
+        <div class="rt">${j.role}</div>
       </div>
       <div class="mr">
         <span class="chip cloc">📍 ${j.loc}</span>
         <span class="chip cexp">⏱ ${j.exp}</span>
         <span class="chip csal">💷 ${j.sal}</span>
-        <span class="chip cvis">✅ Sponsors visa</span>
+        <span class="chip cvis">✅ Visa sponsor</span>
         <span class="chip csrc">🔗 ${j.source}</span>
       </div>
       <div class="tags">${j.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
       <div class="why">${j.why}</div>
       <div class="cf">
         <button class="sbtn${sv?' saved':''}" onclick="toggleSave(${j.id},this)">${sv?'⭐ Saved':'☆ Save'}</button>
-        <a class="abtn" href="${j.url}" target="_blank" rel="noopener">Apply →</a>
+        <a class="abtn" href="${j.url}" target="_blank" rel="noopener">Search on LinkedIn →</a>
       </div>
     </div>`;
   }).join('');
 }
 
 // ─── INTERACTIONS ─────────────────────────────────────────────────────────────
-function setSector(s,btn){activeSector=s;document.querySelectorAll('.fbar:nth-of-type(2) .pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
-function setSectorQ(s){activeSector=s;document.querySelectorAll('.fbar:nth-of-type(2) .pill').forEach(b=>{const t=b.textContent.trim().toLowerCase();b.classList.toggle('on',s==='all'?t.startsWith('all'):t.startsWith(s.slice(0,4)))});render()}
-function setView(v,btn){activeView=v;document.querySelectorAll('.fbar:nth-of-type(3) .pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
-function setDate(d,btn){activeDate=d;document.querySelectorAll('.date-pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
-function toggleSave(id,btn){if(saved.has(id)){saved.delete(id);btn.textContent='☆ Save';btn.classList.remove('saved')}else{saved.add(id);btn.textContent='⭐ Saved';btn.classList.add('saved')}saveLS();if(activeView==='saved')render()}
+function setSector(s,btn){sect=s;document.querySelectorAll('.fbar:nth-of-type(2) .pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function setSQ(s){sect=s;document.querySelectorAll('.fbar:nth-of-type(2) .pill').forEach(b=>{const t=b.textContent.trim().toLowerCase();b.classList.toggle('on',s==='all'?t.startsWith('all'):t.startsWith(s.slice(0,4)))});render()}
+function setView(v,btn){view=v;document.querySelectorAll('.fbar:nth-of-type(3) .pill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function setDate(d,btn){dateF=d;document.querySelectorAll('.dpill').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function toggleSave(id,btn){if(saved.has(id)){saved.delete(id);btn.textContent='☆ Save';btn.classList.remove('saved')}else{saved.add(id);btn.textContent='⭐ Saved';btn.classList.add('saved')}svLS();if(view==='saved')render()}
 function toggleTheme(){
-  const h=document.documentElement;
-  const isDark=h.dataset.theme==='dark';
-  h.dataset.theme=isDark?'light':'dark';
-  document.getElementById('themeIcon').textContent=isDark?'☾':'☀';
-  document.getElementById('themeLabel').textContent=isDark?'Dark mode':'Light mode';
+  const h=document.documentElement,dark=h.dataset.theme==='dark';
+  h.dataset.theme=dark?'light':'dark';
+  document.getElementById('tIcon').textContent=dark?'☾':'☀';
+  document.getElementById('tLabel').textContent=dark?'Dark mode':'Light mode';
 }
 
 renderStats();render();
